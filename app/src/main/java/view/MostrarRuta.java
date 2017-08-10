@@ -170,7 +170,8 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    // CREAR SI ES PRECIO UN LISTENER PARA LAS INCIDENCIAS
+    // CREAR UN LISTENER PARA LAS INCIDENCIAS,
+    // Comparar cada PUNTO DE LA RUTA guardado con alguna incidencia por si coincide y mostrar esa incidencia.
 
 }
 

@@ -17,7 +17,7 @@ public class ParserJSON {
 
     // Clase para aislar el Leer un JSON del Direction Finder, y usarla en las incidencias.
 
-    // -------- GSON --------
+    // -------- GSON -------- (OPCIONAL)
 
     // Parser JSON para la RUTA - GSON (Se ha añadido el 'compile' en el gradle y la librería)
     public List<Ruta> leerFlujoJsonRuta(InputStream in) throws IOException {
