@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- STRINGS GLOBALES -->
+    <string name="app_name" translatable="false">DriveAlert</string>
+    <string name="google_maps_api_key" translatable="false">AIzaSyADCCHJ9BNi29RVPX5eHRYvY8b1jhDlhc0</string>
+    <string name="direction_url_api" translatable="false">https://maps.googleapis.com/maps/api/directions/json?</string>
+    <string name="principal_titulo1">Nueva Ruta</string>
+    <string name="principal_titulo2">Rutas Guardadas</string>
+    <string name="principal_titulo3">Configuración</string>
+    <string name="principal_titulo4">Salir</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR ORIGEN-DESTINO -->
+    <string name="select_ruta_origen">Origen: </string>
+    <string name="select_ruta_destino">Destino: </string>
+    <string name="select_ruta_intrOrig">¿Desde dónde salimos?</string>
+    <string name="select_ruta_intrDest">¿A dónde quieres ir?</string>
+    <string name="select_ruta_ir">Mostrar Ruta</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE MOSTRAR RUTA -->
+    <string name="obtInci">Obtener Incidencias</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR LOS PARÁMETROS -->
+    <string name="param">Parámetros</string>
+    <string name="param1">¿Cómo quieres hacer la ruta?</string>
+    <string name="param2">Ruta en coche/motocicleta</string>
+    <string name="param3">Ruta a pie</string>
+    <string name="param4">Ruta en bici</string>
+    <string name="param5">Ruta en transporte público</string>
+
+    <string name="param6">¿Qué transporte público?</string>
+    <string name="param7">Bus</string>
+    <string name="param8">Tren</string>
+
+    <string name="param9">Evitar Peajes</string>
+    <string name="param10">Evitar Autopistas/Autovías</string>
+    <string name="param11">Evitar Ferries</string>
+
+    <string name="InciButton">Incidencias</string>
+
+    <string name="incidencias">Incidencias</string>
+    <string name="incid1">Cámaras</string>
+    <string name="incid2">Sensores de Tráfico</string>
+    <string name="incid3">Radares</string>
+    <string name="incid4">Retenciones</string>
+    <string name="incid5">Obras</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR CONFIGURACIÓN -->
+    <string name="tituloConfiguracion">Configuración</string>
+    <string name="idioma">Idiomas</string>
+    <string name="configInc">Activar Incidencias</string>
+
+
+
+
+</resources>

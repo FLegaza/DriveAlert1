@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="principal_titulo1">New Route</string>
+    <string name="principal_titulo2">Saved Routes</string>
+    <string name="principal_titulo3">Settings</string>
+    <string name="principal_titulo4">Exit</string>
+    <string name="select_ruta_origen">"Start: "</string>
+    <string name="select_ruta_destino">"Finish: "</string>
+</resources>
