@@ -32,6 +32,7 @@ import java.util.List;
 import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.Ruta;
+import logic.GetIncidencias;
 
 public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener {
 
@@ -85,6 +86,11 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v){
                 // Ejecutar el algoritmo de las incidencias
+                try {
+                    new GetIncidencias().execute();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

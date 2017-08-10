@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.drive.Drive;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     public Button btnConfiguracion;
     public Button btnSalir;
     public ImageButton ibtnAyuda;
+    // private static final String NOMBRE_BASE_DATOS = "DriveAlertBD.db";
+    // private static final int VERSION_ACTUAL = 1;
+   // SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,30 +41,13 @@ public class MainActivity extends AppCompatActivity {
         ibtnAyuda = (ImageButton) findViewById(R.id.ibtnAyuda);
 
         // PRUEBA PARA LA BASE DE DATOS
-        //Abrimos la base de datos en modo escritura
-        // BaseDeDatos usdbh = new BaseDeDatos(this);
-        // SQLiteDatabase db = usdbh.getReadableDatabase();
-
         /*
+        //Abrimos la base de datos en modo escritura
+        BaseDeDatos alumnos = new BaseDeDatos(this, "Prueba", null, 2);
+        db = alumnos.getWritableDatabase();
+
         //Si hemos abierto correctamente la base de datos
-        if(db != null)
-        {
-
-            Insertamos 5 usuarios de ejemplo
-
-            for(int i=1; i<=5; i++)
-            {
-                //Generamos los datos
-                int codigo = i;
-                String nombre = "Usuario" + i;
-                //Insertamos los datos en la tabla Usuarios
-                db.execSQL("INSERT INTO Usuarios (codigo, nombre) " +
-                        "VALUES (" + codigo + ", '" + nombre +"')");
-            }
-
-            //Cerramos la base de datos
-            db.close();
-        }
+        if(db != null){}
         */
 
         // Prueba para mostrar Toast en la Ayuda
