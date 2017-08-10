@@ -170,7 +170,7 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    // UNA VEZ TECLEADO
+    // CREAR SI ES PRECIO UN LISTENER PARA LAS INCIDENCIAS
 
 }
 
