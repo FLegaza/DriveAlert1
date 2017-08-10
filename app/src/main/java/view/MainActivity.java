@@ -50,13 +50,6 @@ public class MainActivity extends AppCompatActivity {
         if(db != null){}
         */
 
-        // Prueba para mostrar Toast en la Ayuda
-        ibtnAyuda.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)  {
-                Toast.makeText(getBaseContext(), "No hay ayuda!" , Toast.LENGTH_SHORT).show();
-            }
-        });
-
         // Abrir Activity de Nueva Ruta
         btnNuevaRuta.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -93,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
                 //intent.addCategory(Intent.CATEGORY_HOME);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //startActivity(intent);
+            }
+        });
+
+        // Prueba para mostrar Toast en la Ayuda
+        ibtnAyuda.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)  {
+                Toast.makeText(getBaseContext(), "No hay ayuda!" , Toast.LENGTH_SHORT).show();
             }
         });
 
