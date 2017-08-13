@@ -37,7 +37,11 @@ public class Configuracion extends AppCompatActivity {
 
         cbIncidencias = (CheckBox) findViewById(R.id.cBIncidencias);
 
-        if (cbIncidencias.isChecked()){ p.setActivarincidencias(true); } else { p.setActivarincidencias(false);}
+        if (cbIncidencias.isChecked()){
+            p.setActivarincidencias(true);
+        } else {
+            p.setActivarincidencias(false);
+        }
 
     }
 }
