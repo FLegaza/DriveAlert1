@@ -67,6 +67,8 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
         ivDistance = (ImageView) findViewById(R.id.ivDistance);
         ivDuration = (ImageView) findViewById(R.id.ivDuration);
         ivGo = (ImageView) findViewById(R.id.ivGo);
+
+        // Mostrar el botón si en configuración la variable activarIncidencias está a TRUE;
         btObtenerIncidencias = (Button) findViewById(R.id.btObtenerIncidencias);
 
         // Recibe el Origen y Destino

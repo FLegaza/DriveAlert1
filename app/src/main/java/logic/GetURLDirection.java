@@ -22,6 +22,8 @@ public class GetURLDirection {
         this.destino = URLEncoder.encode(destinoSelect, "utf-8");
 
         // Debería comprobar los parámetros e introducir la URL con ellos.
+        // Ir comprobando de la base de datos los parámetros
+        // Añadimos los param a la URL
 
         // Sacar los parámetros que haya alojados en la base de datos o lo de por defecto si fuese
         // la primera vez y agregarlosa la ruta

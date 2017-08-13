@@ -32,6 +32,8 @@ public class Configuracion extends AppCompatActivity {
         btIta = (ImageButton) findViewById(R.id.ibIta);
 
         cbIncidencias = (CheckBox) findViewById(R.id.cBIncidencias);
+        // Si se pincha el checkbox, guardar en la BD el booleano activarIncidencias en true,
+        // para mostrar el botón en la pantalla de la ruta.
 
     }
 }
