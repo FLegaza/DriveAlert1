@@ -47,6 +47,7 @@
             android:id="@+id/RbOpcionCar"
             android:layout_width="212dp"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/param2" />
 
         <RadioButton
@@ -112,6 +113,7 @@
         android:id="@+id/cBPeaje"
         android:layout_width="237dp"
         android:layout_height="32dp"
+        android:checked="true"
         android:text="@string/param11"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.308"
@@ -137,11 +139,12 @@
         android:id="@+id/cBFerry"
         android:layout_width="237dp"
         android:layout_height="32dp"
+        android:checked="true"
         android:text="@string/param9"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.308"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.308"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.686" />
 

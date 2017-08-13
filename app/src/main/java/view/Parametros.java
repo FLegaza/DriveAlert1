@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
+import data.Param;
+
 /*
 CLASE PARAM - Para mostrar y donde se eligen los parámetros de la aplicación para la
     busqueda de la ruta.
@@ -36,6 +38,7 @@ public class Parametros extends AppCompatActivity {
     public CheckBox cBFerry;
 
     public Button btIncidencias;
+    Param p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,7 @@ public class Parametros extends AppCompatActivity {
         cBFerry = (CheckBox) findViewById(R.id.cBFerry);
 
         btIncidencias = (Button) findViewById(R.id.btIncidencias);
+        if (p.isActivarincidencias()){ btIncidencias.setVisibility(View.GONE);}
 
         // Abrir Activity para configurar las Incidencias
         btIncidencias.setOnClickListener(new View.OnClickListener(){
@@ -75,7 +79,18 @@ public class Parametros extends AppCompatActivity {
             }
         });
 
-        // boolean estado = Rb.isCheked();
+        if (RbOpcionCar.isChecked()){ p.setRutacoche(true); } else { p.setRutacoche(false);}
+        if (RbOpcionPie.isChecked()){ p.setRutapie(true); } else { p.setRutapie(false);}
+        if (RbOpcionBici.isChecked()){ p.setRutabici(true); } else { p.setRutabici(false);}
+
+        if (RbOpcionPublic.isChecked()){ p.setRutapublic(true); } else { p.setRutapublic(false);}
+        if (RbOpcionBus.isChecked()){ p.setPublicbus(true); } else { p.setPublicbus(false);}
+        if (RbOpcionTren.isChecked()){ p.setPublictren(true); } else { p.setPublictren(false);}
+
+        if (cBPeaje.isChecked()){ p.setPeaje(true); } else { p.setPeaje(false);}
+        if (cBAutovia.isChecked()){ p.setAutovia(true); } else { p.setAutovia(false);}
+        if (cBFerry.isChecked()){ p.setFerry(true); } else { p.setFerry(false);}
+
     }
 
     public void onRadioButtonClicked(View view) {

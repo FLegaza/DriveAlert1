@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
+import data.Param;
+
 public class Configuracion extends AppCompatActivity {
 
     public TextView tvConfig;
@@ -16,6 +18,8 @@ public class Configuracion extends AppCompatActivity {
     public ImageButton btIng;
     public ImageButton btIta;
     public CheckBox cbIncidencias;
+
+    Param p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,8 @@ public class Configuracion extends AppCompatActivity {
         btIta = (ImageButton) findViewById(R.id.ibIta);
 
         cbIncidencias = (CheckBox) findViewById(R.id.cBIncidencias);
-        // Si se pincha el checkbox, guardar en la BD el booleano activarIncidencias en true,
-        // para mostrar el botón en la pantalla de la ruta.
+
+        if (cbIncidencias.isChecked()){ p.setActivarincidencias(true); } else { p.setActivarincidencias(false);}
 
     }
 }

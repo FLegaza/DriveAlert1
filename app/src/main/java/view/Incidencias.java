@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
+import data.Param;
+
 public class Incidencias extends AppCompatActivity {
 
     public TextView tvIncidencias;
@@ -22,6 +24,8 @@ public class Incidencias extends AppCompatActivity {
     public String reten;
     public String obra;
 
+    Param p;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,12 @@ public class Incidencias extends AppCompatActivity {
         SwRadar = (Switch) findViewById(R.id.SwRadar);
         SwReten = (Switch) findViewById(R.id.SwReten);
         SwObra = (Switch) findViewById(R.id.SwObra);
+
+        if (SwCamaras.isChecked()){ p.setIncicam(true); } else { p.setIncicam(false);}
+        if (SwSensores.isChecked()){ p.setIncisensor(true); } else { p.setIncisensor(false);}
+        if (SwRadar.isChecked()){ p.setInciradar(true); } else { p.setInciradar(false);}
+        if (SwReten.isChecked()){ p.setIncireten(true); } else { p.setIncireten(false);}
+        if (SwObra.isChecked()){ p.setInciobra(true); } else { p.setInciobra(false);}
 
     }
 
