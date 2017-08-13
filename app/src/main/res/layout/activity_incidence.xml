@@ -24,10 +24,11 @@
 
         <Switch
             android:id="@+id/SwCamaras"
-            android:layout_width="161dp"
+            android:layout_width="250dp"
             android:layout_height="34dp"
             android:checked="false"
             android:text="@string/incid1"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -37,10 +38,11 @@
 
         <Switch
             android:id="@+id/SwSensores"
-            android:layout_width="161dp"
+            android:layout_width="250dp"
             android:layout_height="34dp"
             android:checked="false"
             android:text="@string/incid2"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -50,10 +52,11 @@
 
         <Switch
             android:id="@+id/SwRadar"
-            android:layout_width="161dp"
+            android:layout_width="250dp"
             android:layout_height="34dp"
             android:checked="false"
             android:text="@string/incid3"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -63,10 +66,11 @@
 
         <Switch
             android:id="@+id/SwReten"
-            android:layout_width="161dp"
+            android:layout_width="250dp"
             android:layout_height="34dp"
             android:checked="false"
             android:text="@string/incid4"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -76,10 +80,11 @@
 
         <Switch
             android:id="@+id/SwObra"
-            android:layout_width="161dp"
+            android:layout_width="250dp"
             android:layout_height="34dp"
             android:checked="false"
             android:text="@string/incid5"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintLeft_toLeftOf="parent"
