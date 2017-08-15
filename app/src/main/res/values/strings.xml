@@ -4,6 +4,8 @@
     <string name="app_name" translatable="false">DriveAlert</string>
     <string name="google_maps_api_key" translatable="false">AIzaSyADCCHJ9BNi29RVPX5eHRYvY8b1jhDlhc0</string>
     <string name="direction_url_api" translatable="false">https://maps.googleapis.com/maps/api/directions/json?</string>
+
+    <!-- STRINGS ACTIVITY PRINCIPAL -->
     <string name="principal_titulo1">Nueva Ruta</string>
     <string name="principal_titulo2">Rutas Guardadas</string>
     <string name="principal_titulo3">Configuración</string>

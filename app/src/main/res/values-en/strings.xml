@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- STRINGS ACTIVITY PRINCIPAL -->
     <string name="principal_titulo1">New Route</string>
     <string name="principal_titulo2">Saved Routes</string>
     <string name="principal_titulo3">Settings</string>
     <string name="principal_titulo4">Exit</string>
-    <string name="select_ruta_origen">"Start: "</string>
-    <string name="select_ruta_destino">"Finish: "</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR ORIGEN-DESTINO -->
+    <string name="select_ruta_destino">Finish:</string>
+    <string name="select_ruta_origen">Origin:</string>
+    <string name="select_ruta_intrOrig">From where?</string>
+    <string name="select_ruta_intrDest">Where we go?</string>
+    <string name="select_ruta_ir">Show route</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE MOSTRAR RUTA -->
+    <string name="obtInci">Obtain Traffic Events</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR LOS PARÁMETROS -->
+    <string name="param">Parameters</string>
+    <string name="param1">How gonna be the route?</string>
+    <string name="param2">Route by Car</string>
+    <string name="param3">Route on Foot</string>
+    <string name="param4">Bicycle route</string>
+    <string name="param5">Public transport route</string>
+
+    <string name="param6">¿What kind of public transport?</string>
+    <string name="param7">Bus</string>
+    <string name="param8">Train</string>
+
+    <string name="param9">Avoid Tolls</string>
+    <string name="param10">Avoid Highways</string>
+    <string name="param11">Avoid Ferries</string>
+
+    <string name="InciButton">Traffic Events</string>
+
+    <string name="incidencias">Traffic Events</string>
+    <string name="incid1">Cameras</string>
+    <string name="incid2">Traffic Sensors</string>
+    <string name="incid3">Radars</string>
+    <string name="incid4">Traffic jams</string>
+    <string name="incid5">Works</string>
+
+    <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR CONFIGURACIÓN -->
+    <string name="tituloConfiguracion">Configuration</string>
+    <string name="idioma">Languages</string>
+    <string name="configInc">Active Traffic Events</string>
+
 </resources>
