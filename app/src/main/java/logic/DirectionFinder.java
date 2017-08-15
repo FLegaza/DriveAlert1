@@ -110,6 +110,7 @@ public class DirectionFinder {
             JSONObject jsonEndLocation = jsonLeg.getJSONObject("end_location");
             JSONObject jsonStartLocation = jsonLeg.getJSONObject("start_location");
 
+            // Cambiar por funciones SET - GET
             ruta.distanciaStr = jsonDistancia.getString("text");
             ruta.distanciaInt =  jsonDistancia.getInt("value");
             ruta.duracionStr = jsonDuracion.getString("text");
