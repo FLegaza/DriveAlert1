@@ -38,7 +38,6 @@ public class Parametros extends AppCompatActivity {
     public CheckBox cBFerry;
 
     public Button btIncidencias;
-    Param p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +67,8 @@ public class Parametros extends AppCompatActivity {
         cBFerry = (CheckBox) findViewById(R.id.cBFerry);
 
         btIncidencias = (Button) findViewById(R.id.btIncidencias);
+
+        Param p = new Param(); // No se puede crear un nuevo param, debería cogerlo de configuración
         if (p.isActivarincidencias()){ btIncidencias.setVisibility(View.GONE);}
 
         // Abrir Activity para configurar las Incidencias
@@ -90,6 +91,8 @@ public class Parametros extends AppCompatActivity {
         if (cBPeaje.isChecked()){ p.setPeaje(true); } else { p.setPeaje(false);}
         if (cBAutovia.isChecked()){ p.setAutovia(true); } else { p.setAutovia(false);}
         if (cBFerry.isChecked()){ p.setFerry(true); } else { p.setFerry(false);}
+
+        // Enviar Param a las funciones de Logic
 
     }
 

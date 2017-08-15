@@ -19,8 +19,6 @@ public class Configuracion extends AppCompatActivity {
     public ImageButton btIta;
     public CheckBox cbIncidencias;
 
-    Param p;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +34,7 @@ public class Configuracion extends AppCompatActivity {
         btIta = (ImageButton) findViewById(R.id.ibIta);
 
         cbIncidencias = (CheckBox) findViewById(R.id.cBIncidencias);
+        Param p = new Param();
 
         if (cbIncidencias.isChecked()){
             p.setActivarincidencias(true);

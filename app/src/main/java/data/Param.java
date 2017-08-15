@@ -3,23 +3,23 @@ package data;
 
 public class Param {
 
-    public boolean rutacoche;
-    public boolean rutapie;
-    public boolean rutabici;
-    public boolean rutapublic;
-    public boolean publicbus;
-    public boolean publictren;
+    private boolean rutacoche = true;
+    private boolean rutapie = false;
+    private boolean rutabici = false;
+    private boolean rutapublic = false;
+    private boolean publicbus = false;
+    private boolean publictren = false;
 
-    public boolean peaje;
-    public boolean autovia;
-    public boolean ferry;
-    public boolean incicam;
-    public boolean incisensor;
-    public boolean inciradar;
-    public boolean incireten;
-    public boolean inciobra;
+    private boolean peaje = true;
+    private boolean autovia = false;
+    private boolean ferry = true;
+    private boolean incicam = true;
+    private boolean incisensor = true;
+    private boolean inciradar = true;
+    private boolean incireten = true;
+    private boolean inciobra = true;
 
-    public boolean activarincidencias;
+    private boolean activarincidencias = true;
 
     public boolean isRutacoche() {
         return rutacoche;

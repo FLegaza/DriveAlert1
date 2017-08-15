@@ -38,6 +38,8 @@ public class Incidencias extends AppCompatActivity {
         SwReten = (Switch) findViewById(R.id.SwReten);
         SwObra = (Switch) findViewById(R.id.SwObra);
 
+        Param p = new Param();
+
         if (SwCamaras.isChecked()){ p.setIncicam(true); } else { p.setIncicam(false);}
         if (SwSensores.isChecked()){ p.setIncisensor(true); } else { p.setIncisensor(false);}
         if (SwRadar.isChecked()){ p.setInciradar(true); } else { p.setInciradar(false);}

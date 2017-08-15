@@ -29,7 +29,6 @@ public class Ruta {
 
     public List<LatLng> PuntosRuta;
     public List<Incidencia> IncidenciasRuta;
-
     public String getOrigen() {
         return origen;
     }
