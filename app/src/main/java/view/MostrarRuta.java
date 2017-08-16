@@ -45,6 +45,7 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
     public ImageView ivGo;
     public SupportMapFragment map;
     public GoogleMap mMap;
+    public TextView tvDescripcion;
     public Button btObtenerIncidencias;
 
     private List<Marker> origenMarkers = new ArrayList<>();
@@ -67,6 +68,7 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
         ivDistance = (ImageView) findViewById(R.id.ivDistance);
         ivDuration = (ImageView) findViewById(R.id.ivDuration);
         ivGo = (ImageView) findViewById(R.id.ivGo);
+        tvDescripcion = (TextView) findViewById(R.id.tvDescripcionInci);
 
         // Mostrar el botón si en configuración la variable activarIncidencias está a TRUE;
         btObtenerIncidencias = (Button) findViewById(R.id.btObtenerIncidencias);
@@ -95,7 +97,42 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+
+        // De las incidencias que se muestren, estarán guardadas en list<indidencia> en la ruta,
+        // por lo que el ID que se pinche en el mapa, mostrar la descripción en el textView, la
+        // descripción sería la carretera junto a las descripcion de la incidencia.
+        // (La traducción no sé si será posible)
     }
+
+    // MARCADOR CLICKABLE PARA MOSTRAR LA DESCRIPCION DE LA INCIDENCIA
+    /*
+    public class MarkerDemoActivity extends android.support.v4.app.FragmentActivity implements OnMarkerClickListener
+    {
+        private Marker myMarker;
+
+        private void setUpMap()
+        {
+            .......
+            googleMap.setOnMarkerClickListener(this);
+
+            myMarker = googleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("My Spot")
+                        .snippet("This is my spot!")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            ......
+        }
+
+        @Override
+        public boolean onMarkerClick(final Marker marker) {
+
+            if (marker.equals(myMarker))
+            {
+                //handle click here
+            }
+        }
+    }
+     */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

@@ -56,6 +56,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             "horafin STRING," +
             "nivel STRING);";
 
+    /*
     private String SQLCreateTableParam = "CREATE TABLE param (" +
             "rutacoche BOOLEAN," +
             "rutapie BOOLEAN," +
@@ -72,6 +73,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             "incireten BOOLEAN," +
             "inciobra BOOLEAN)," +
             "activarincidencias BOOLEAN);";
+
+     */
 
        // Creamos la Base de Datos
 

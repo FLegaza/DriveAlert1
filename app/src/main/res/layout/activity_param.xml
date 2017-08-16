@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintHorizontal_bias="0.379"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,26 +45,26 @@
 
         <RadioButton
             android:id="@+id/RbOpcionCar"
-            android:layout_width="212dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/param2" />
 
         <RadioButton
             android:id="@+id/RbOpcionPie"
-            android:layout_width="104dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/param3" />
 
         <RadioButton
             android:id="@+id/RbOpcionBici"
-            android:layout_width="121dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/param4" />
 
         <RadioButton
             android:id="@+id/RbOpcionPublic"
-            android:layout_width="match_parent"
+            android:layout_width="260dp"
             android:onClick="onRadioButtonClicked"
             android:layout_height="wrap_content"
             android:text="@string/param5" />
@@ -103,7 +103,7 @@
 
         <RadioButton
             android:id="@+id/RbOpcionTren"
-            android:layout_width="104dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/param8" />
 
@@ -150,11 +150,11 @@
 
     <Button
         android:id="@+id/btIncidencias"
-        android:layout_width="110dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/InciButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

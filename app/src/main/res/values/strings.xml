@@ -51,4 +51,6 @@
     <string name="idioma">Idiomas</string>
     <string name="configInc">Activar Incidencias</string>
 
+    <string name="description">Descripción de la incidencia pulsada</string>
+
 </resources>

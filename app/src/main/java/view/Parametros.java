@@ -66,12 +66,13 @@ public class Parametros extends AppCompatActivity {
         cBAutovia = (CheckBox) findViewById(R.id.cBAutovia);
         cBFerry = (CheckBox) findViewById(R.id.cBFerry);
 
-        btIncidencias = (Button) findViewById(R.id.btIncidencias);
+        //btIncidencias = (Button) findViewById(R.id.btIncidencias);
 
         Param p = new Param(); // No se puede crear un nuevo param, debería cogerlo de configuración
-        if (p.isActivarincidencias()){ btIncidencias.setVisibility(View.GONE);}
+        //if (p.isActivarincidencias()){ btIncidencias.setVisibility(View.GONE);}
 
         // Abrir Activity para configurar las Incidencias
+        /*
         btIncidencias.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -79,6 +80,7 @@ public class Parametros extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        */
 
         if (RbOpcionCar.isChecked()){ p.setRutacoche(true); } else { p.setRutacoche(false);}
         if (RbOpcionPie.isChecked()){ p.setRutapie(true); } else { p.setRutapie(false);}
