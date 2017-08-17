@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 
 import data.Param;
 
-
 /*
 Clase para crear la URL para obtener todas las incidencias de tráfico.
  */
@@ -25,24 +24,23 @@ public class GetURLTrafico {
     if (par.isInciobra()) { varObra = "true"; } else { varObra = "false"; }
     if (par.isInciradar()) { varRadar = "true"; } else { varRadar = "false"; }
 
-
-        String direccion = "http://infocar.dgt.es/etraffic/BuscarElementos?latNS=37.40515&longNS=-5.87751&latSW=37.34376&longSW=-6.06686" +
-                "&zoom=13&accion=getElementos" +
-                "&Camaras="+ this.varCam +
-                "&SensoresTrafico=" + this.varSensor +
-                "&SensoresMeteorologico=true" +
-                "&Paneles=true" +
-                "&Radares=" + this.varRadar +
-                "&IncidenciasRETENCION=" + this.varReten +
-                "&IncidenciasOBRAS=" + this.varObra +
-                "&IncidenciasMETEOROLOGICA=true" +
-                "&IncidenciasPUERTOS=true" +
-                "&IncidenciasOTROS=true" +
-                "&IncidenciasEVENTOS=true" +
-                "&IncidenciasRESTRICCIONES=true" +
-                "&niveles=true" +
-                "&caracter=acontecimiento";
-        return direccion;
+    String direccion = "http://infocar.dgt.es/etraffic/BuscarElementos?latNS=37.40515&longNS=-5.87751&latSW=37.34376&longSW=-6.06686" +
+            "&zoom=13&accion=getElementos" +
+            "&Camaras="+ this.varCam +
+            "&SensoresTrafico=" + this.varSensor +
+            "&SensoresMeteorologico=true" +
+            "&Paneles=true" +
+            "&Radares=" + this.varRadar +
+            "&IncidenciasRETENCION=" + this.varReten +
+            "&IncidenciasOBRAS=" + this.varObra +
+            "&IncidenciasMETEOROLOGICA=true" +
+            "&IncidenciasPUERTOS=true" +
+            "&IncidenciasOTROS=true" +
+            "&IncidenciasEVENTOS=true" +
+            "&IncidenciasRESTRICCIONES=true" +
+            "&niveles=true" +
+            "&caracter=acontecimiento";
+    return direccion;
     }
 
 }
