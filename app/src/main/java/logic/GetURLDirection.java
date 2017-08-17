@@ -4,6 +4,8 @@ package logic;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import data.Param;
+
 import static com.project.francisco.drivealert.R.string.direction_url_api;
 import static com.project.francisco.drivealert.R.string.google_maps_api_key;
 
@@ -15,21 +17,35 @@ public class GetURLDirection {
 
     private String origen;
     private String destino;
+    private String stringParam = "";
 
-    // Constructor
-    public String GetURLDirection (String origenSelect, String destinoSelect) throws UnsupportedEncodingException {
+    // Constructor (Se le pasa el origen, destino y parámetros)
+    public String GetURLDirection (String origenSelect, String destinoSelect, Param par) throws UnsupportedEncodingException {
         this.origen = URLEncoder.encode(origenSelect, "utf-8");
         this.destino = URLEncoder.encode(destinoSelect, "utf-8");
 
-        // Debería comprobar los parámetros e introducir la URL con ellos.
-        // Ir comprobando de la base de datos los parámetros
-        // Añadimos los param a la URL
+        // Sacar parámetros
+        if (par.isRutacoche()){
+            stringParam = stringParam + "&mode=driving";
+        } else if (par.isRutabici()){
+            stringParam = stringParam + "&mode=bicycling";
+        } else if (par.isRutapie()) {
+            stringParam = stringParam + "&mode=walking";
+        } else if (par.isRutapublic()){
+            stringParam = stringParam + "&mode=transit";
+            if (par.isPublicbus()){
+                stringParam = stringParam + "&transit_mode=bus";
+            } else if (par.isPublictren()){
+                stringParam = stringParam + "&transit_mode=train";
+            }
+        }
+        if (par.isPeaje()) stringParam = stringParam + "&avoid=tolls";
+        if (par.isAutovia()) stringParam = stringParam + "&avoid=highways";
+        if (par.isFerry()) stringParam = stringParam + "&avoid=ferry";
 
-        // Sacar los parámetros que haya alojados en la base de datos o lo de por defecto si fuese
-        // la primera vez y agregarlosa la ruta
 
         return direction_url_api + "origin=" + this.origen +
-                "&destination=" + this.destino + "&key=" + google_maps_api_key;
+                "&destination=" + this.destino + this.stringParam + "&key=" + google_maps_api_key;
     }
 
 }

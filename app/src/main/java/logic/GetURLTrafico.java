@@ -2,25 +2,46 @@ package logic;
 
 import java.io.UnsupportedEncodingException;
 
+import data.Param;
+
 
 /*
 Clase para crear la URL para obtener todas las incidencias de tráfico.
  */
 public class GetURLTrafico {
 
-
-    // Aquí se debe coger los parámetros seleccionados en la aplicación y crear la URL a partir de ellos.
-
-    // Sacar la configuración de incidencias que haya alojados en la base de datos o lo de por defecto si fuese
-    // la primera vez y agregarlos a la ruta.
+    private String varCam;
+    private String varSensor;
+    private String varReten;
+    private String varObra;
+    private String varRadar;
 
     // Constructor
-    public String GetURLTrafico() throws UnsupportedEncodingException {
+    public String GetURLTrafico(Param par) throws UnsupportedEncodingException {
+
+    if (par.isIncicam()) { varCam = "true"; } else { varCam = "false"; }
+    if (par.isIncisensor()) { varSensor = "true"; } else { varSensor = "false"; }
+    if (par.isIncireten()) { varReten = "true"; } else { varReten = "false"; }
+    if (par.isInciobra()) { varObra = "true"; } else { varObra = "false"; }
+    if (par.isInciradar()) { varRadar = "true"; } else { varRadar = "false"; }
+
+
         String direccion = "http://infocar.dgt.es/etraffic/BuscarElementos?latNS=37.40515&longNS=-5.87751&latSW=37.34376&longSW=-6.06686" +
-                "&zoom=13&accion=getElementos&Camaras=true&SensoresTrafico=true&SensoresMeteorologico=true" +
-                "&Paneles=true&Radares=true&IncidenciasRETENCION=true&IncidenciasOBRAS=false&IncidenciasMETEOROLOGICA=true" +
-                "&IncidenciasPUERTOS=true&IncidenciasOTROS=true&IncidenciasEVENTOS=true&IncidenciasRESTRICCIONES=true" +
-                "&niveles=true&caracter=acontecimiento";
+                "&zoom=13&accion=getElementos" +
+                "&Camaras="+ this.varCam +
+                "&SensoresTrafico=" + this.varSensor +
+                "&SensoresMeteorologico=true" +
+                "&Paneles=true" +
+                "&Radares=" + this.varRadar +
+                "&IncidenciasRETENCION=" + this.varReten +
+                "&IncidenciasOBRAS=" + this.varObra +
+                "&IncidenciasMETEOROLOGICA=true" +
+                "&IncidenciasPUERTOS=true" +
+                "&IncidenciasOTROS=true" +
+                "&IncidenciasEVENTOS=true" +
+                "&IncidenciasRESTRICCIONES=true" +
+                "&niveles=true" +
+                "&caracter=acontecimiento";
         return direccion;
     }
 
