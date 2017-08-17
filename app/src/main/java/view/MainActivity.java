@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton ibtnAyuda;
     // private static final String NOMBRE_BASE_DATOS = "DriveAlertBD.db";
     // private static final int VERSION_ACTUAL = 1;
-   // SQLiteDatabase db;
+    // SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +89,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Prueba para mostrar Toast en la Ayuda
+        // Abrir Activity de Ayuda
         ibtnAyuda.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)  {
-                Toast.makeText(getBaseContext(), "No hay ayuda!" , Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, ViewAyuda.class);
+                startActivity(i);
             }
         });
 

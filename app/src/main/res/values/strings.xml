@@ -20,6 +20,7 @@
 
     <!-- STRINGS PARA EL ACTIVITY DE MOSTRAR RUTA -->
     <string name="obtInci">Obtener Incidencias</string>
+    <string name="description">Descripción de la incidencia pulsada</string>
 
     <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR LOS PARÁMETROS -->
     <string name="param">Parámetros</string>
@@ -51,6 +52,27 @@
     <string name="idioma">Idiomas</string>
     <string name="configInc">Activar Incidencias</string>
 
-    <string name="description">Descripción de la incidencia pulsada</string>
+    <!-- STRINGS PARA EL ACTIVITY DE AYUDA -->
+    <string name="ayuda">Ayuda</string>
+    <string name="ayudadescripcion">
+        Bienvenido a Drive Smart.
+
+        \n\nEsta aplicación te permitirá conocer la ruta que más se ajuste a tus preferencias dependiendo de
+        las opciones que desees, además te informará en el mapa de cualquier incidencia de tráfico que pudiese haber en la ruta.
+
+        \n\nPara empezar te recomiendo que entres en Configuración y elijas el idioma, los parámetros de la ruta y las preferencias
+        en cuanto a qué incidencias quieres que se te muestren. Una vez hecho eso, escoge la opción Selecciona Nueva Ruta
+        y elige el Origen y Destino de la ruta que desees realizar.
+
+        \n\nUna vez que estés viendo la Ruta, podrás navegar por el mapa y ver el trazado de ésta, si lo deseas,
+        pulsando la opción de Obtener Incidencias podrás ver si a lo largo de tu ruta hay alguna incidencia de las que
+        has configurado, y su descripción pinchando en ella.
+
+        \n\nLa ruta quedará guardada en la aplicación y podrás ver de nuevo el tiempo y duración estimado
+        por si alguna vez estás interesado en volver a hacerla.
+
+        \n\nGracias por utilizarla y ¡buen viaje!
+    </string>
+
 
 </resources>

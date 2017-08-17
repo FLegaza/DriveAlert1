@@ -6,4 +6,29 @@
     android:layout_height="match_parent"
     tools:context="view.ViewAyuda">
 
+    <TextView
+        android:id="@+id/tvHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ayuda"
+        android:textSize="27sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014" />
+
+    <TextView
+        android:id="@+id/tvHelpDescription"
+        android:layout_width="357dp"
+        android:layout_height="441dp"
+        android:text="@string/ayudadescripcion"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.771"
+        app:layout_constraintHorizontal_bias="0.518" />
+
 </android.support.constraint.ConstraintLayout>
