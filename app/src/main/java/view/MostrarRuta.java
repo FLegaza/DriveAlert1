@@ -2,7 +2,6 @@ package view;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +25,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.project.francisco.drivealert.R;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +33,7 @@ import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.Ruta;
 import logic.GetIncidencias;
+
 
 public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener {
 
@@ -53,14 +54,20 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog pDEspera;
 
+    private List<Ruta> rutas;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
-        map = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        map.getMapAsync(this);
 
+        injectViews();
+        configureShowRoute();
+    }
+
+    protected void injectViews() {
+        map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         tvOrigShow = (TextView) findViewById(R.id.tvOrigShow);
         tvDestShow = (TextView) findViewById(R.id.tvDestShow);
         tvDistance = (TextView) findViewById(R.id.tvDistance);
@@ -69,22 +76,18 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
         ivDuration = (ImageView) findViewById(R.id.ivDuration);
         ivGo = (ImageView) findViewById(R.id.ivGo);
         tvDescripcion = (TextView) findViewById(R.id.tvDescripcionInci);
+        btObtenerIncidencias = (Button) findViewById(R.id.btObtenerIncidencias);
+    }
+
+    protected void configureShowRoute() {
+
 
         // Mostrar el botón si en configuración la variable activarIncidencias está a TRUE;
-        btObtenerIncidencias = (Button) findViewById(R.id.btObtenerIncidencias);
 
-        // Recibe el Origen y Destino
-        Bundle extras = getIntent().getExtras();
-        String OrigenRuta = extras.getString("origen");
-        String DestinoRuta = extras.getString("destino");
-        tvOrigShow.setText(OrigenRuta);
-        tvDestShow.setText(DestinoRuta);
-
-        try {
-            new DirectionFinder(this, OrigenRuta, DestinoRuta).execute();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        // De las incidencias que se muestren, estarán guardadas en list<indidencia> en la ruta,
+        // por lo que el ID que se pinche en el mapa, mostrar la descripción en el textView, la
+        // descripción sería la carretera junto a las descripcion de la incidencia.
+        // (La traducción no sé si será posible)
 
         btObtenerIncidencias.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,10 +101,78 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        // De las incidencias que se muestren, estarán guardadas en list<indidencia> en la ruta,
-        // por lo que el ID que se pinche en el mapa, mostrar la descripción en el textView, la
-        // descripción sería la carretera junto a las descripcion de la incidencia.
-        // (La traducción no sé si será posible)
+        setUpMapIfNeeded();
+        loadDirectionFromRoute();
+    }
+
+    private void setUpMapIfNeeded() {
+        if (mMap != null) return;
+        map.getMapAsync(this);
+    }
+
+    protected void loadDirectionFromRoute() {
+        Bundle extras = getIntent().getExtras();
+        String origen  = extras.getString("origen");
+        String destino = extras.getString("destino");
+
+        tvOrigShow.setText(origen);
+        tvDestShow.setText(destino);
+
+        try {
+            String directionURL = getURLDirectionFrom(origen, destino);
+            new DirectionFinder(this, directionURL).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected String getURLDirectionFrom(String origin, String destination) {
+        String originEncode = null;
+        String destinationEncode  = null;
+
+        try {
+            originEncode = URLEncoder.encode(origin, "utf-8");
+            destinationEncode = URLEncoder.encode(destination, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return  getString(R.string.direction_url_api)
+                + "origin=" + originEncode
+                + "&destination=" + destinationEncode
+                + "&key=" + getString(R.string.google_maps_api_key);
+    }
+
+    protected void updateGoogleMap() {
+        if (mMap == null || this.rutas == null) return;
+
+        polylinePaths  = new ArrayList<>();
+        origenMarkers  = new ArrayList<>();
+        destinoMarkers = new ArrayList<>();
+
+        for (Ruta ruta : this.rutas) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ruta.latorigen, 16));
+            ((TextView) findViewById(R.id.tvDuration)).setText(ruta.duracionStr); //ruta.dur.text
+            ((TextView) findViewById(R.id.tvDistance)).setText(ruta.distanciaStr); // ruta.dist.text
+
+            origenMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
+                    .title(ruta.origen)
+                    .position(ruta.latorigen)));
+            destinoMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green))
+                    .title(ruta.destino)
+                    .position(ruta.latdestino)));
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.BLUE).
+                    width(10);
+
+            for (int i = 0; i < ruta.PuntosRuta.size(); i++)
+                polylineOptions.add(ruta.PuntosRuta.get(i));
+
+            polylinePaths.add(mMap.addPolyline(polylineOptions));
+        }
     }
 
     // MARCADOR CLICKABLE PARA MOSTRAR LA DESCRIPCION DE LA INCIDENCIA
@@ -155,6 +226,8 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
+
+        updateGoogleMap();
     }
 
     @Override
@@ -178,40 +251,15 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onDirectionFinderSuccess(List<Ruta> rutas) {
+    public void onDirectionFinderSuccess(final List<Ruta> rutas) {
+        this.rutas = rutas;
         pDEspera.dismiss();
-        polylinePaths = new ArrayList<>();
-        origenMarkers = new ArrayList<>();
-        destinoMarkers = new ArrayList<>();
 
-        for (Ruta ruta : rutas) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ruta.latorigen, 16));
-            ((TextView) findViewById(R.id.tvDuration)).setText(ruta.duracionStr); //ruta.dur.text
-            ((TextView) findViewById(R.id.tvDistance)).setText(ruta.distanciaStr); // ruta.dist.text
-
-            origenMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
-                    .title(ruta.origen)
-                    .position(ruta.latorigen)));
-            destinoMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green))
-                    .title(ruta.destino)
-                    .position(ruta.latdestino)));
-            PolylineOptions polylineOptions = new PolylineOptions().
-                    geodesic(true).
-                    color(Color.BLUE).
-                    width(10);
-
-            for (int i = 0; i < ruta.PuntosRuta.size(); i++)
-                polylineOptions.add(ruta.PuntosRuta.get(i));
-
-            polylinePaths.add(mMap.addPolyline(polylineOptions));
-        }
+        updateGoogleMap();
     }
 
     // CREAR UN LISTENER PARA LAS INCIDENCIAS,
     // Comparar cada PUNTO DE LA RUTA guardado con alguna incidencia por si coincide y mostrar esa incidencia.
 
 }
-
 

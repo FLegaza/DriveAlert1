@@ -15,15 +15,10 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import data.Ruta;
-import logic.DirectionFinderListener;
-
-import static com.project.francisco.drivealert.R.string.google_maps_api_key;
-import static com.project.francisco.drivealert.R.string.direction_url_api;
 
 /*
     CLASE DIRECTION FINDER - Clase que se encarga de (crear la URL) para coger el JSON, parsearlo y
@@ -32,28 +27,18 @@ import static com.project.francisco.drivealert.R.string.direction_url_api;
 public class DirectionFinder {
 
     private DirectionFinderListener listener;
-    private String origen;
-    private String destino;
+    private String url;
 
     // Constructor
-    public DirectionFinder(DirectionFinderListener listener, String origen, String destino) {
+    public DirectionFinder(DirectionFinderListener listener, String url) {
         this.listener = listener;
-        this.origen = origen;
-        this.destino = destino;
+        this.url = url;
     }
 
     // Ejecución de la búsqueda de la Ruta
     public void execute() throws UnsupportedEncodingException {
         listener.onDirectionFinderStart();
-        new DownloadRawData().execute(createUrl());
-    }
-
-    // Creación de la URL para la web desde donde obtener los datos
-    private String createUrl() throws UnsupportedEncodingException {
-        String urlOrigen = URLEncoder.encode(origen, "utf-8");
-        String urlDestino = URLEncoder.encode(destino, "utf-8");
-        return direction_url_api + "origin=" + urlOrigen +
-                "&destination=" + urlDestino + "&key=" + google_maps_api_key;
+        new DownloadRawData().execute(this.url);
     }
 
     // Función para recoger toda la información de la página web

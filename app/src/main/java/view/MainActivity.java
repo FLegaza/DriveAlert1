@@ -1,19 +1,13 @@
 package view;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.drive.Drive;
 import com.project.francisco.drivealert.R;
-
-import sqlite.BaseDeDatos;
 
 /*  CLASE_PRINCIPAL MainActivity
     Clase-Activity con la cual arranca la aplicación.
