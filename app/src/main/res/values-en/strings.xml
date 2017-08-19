@@ -46,6 +46,9 @@
     <string name="idioma">Languages</string>
     <string name="configInc">Active Traffic Events</string>
 
+    <!-- STRINGS PARA EL ACTIVITY DE RUTAS GUARDADAS -->
+    <string name="rutasguardadas">Saved Routes</string>
+
     <!-- STRINGS PARA EL ACTIVITY DE AYUDA -->
     <string name="ayuda">Help</string>
     <string name="ayudadescripcion">

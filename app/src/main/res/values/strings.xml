@@ -52,6 +52,9 @@
     <string name="idioma">Idiomas</string>
     <string name="configInc">Activar Incidencias</string>
 
+    <!-- STRINGS PARA EL ACTIVITY DE RUTAS GUARDADAS -->
+    <string name="rutasguardadas">Rutas Guardadas</string>
+
     <!-- STRINGS PARA EL ACTIVITY DE AYUDA -->
     <string name="ayuda">Ayuda</string>
     <string name="ayudadescripcion">
