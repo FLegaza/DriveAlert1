@@ -1,9 +1,8 @@
-package sqlite;
+package data.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 
 
 public class BaseDeDatos extends SQLiteOpenHelper {

@@ -1,4 +1,4 @@
-package sqlite;
+package data.sqlite;
 
 
 public class OperacionesBD {
