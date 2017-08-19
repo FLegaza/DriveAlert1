@@ -15,6 +15,9 @@ public class RutasGuardadas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_routes);
+
+        // LIST VIEW LA MEJOR OPCIÓN para Mostrar una lista de:
+        // RUTA 1 - Origen-Destino - Km - Tiempo - Incidencias: 2)
     }
 
 
