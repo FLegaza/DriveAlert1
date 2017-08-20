@@ -14,7 +14,7 @@ import com.project.francisco.drivealert.R;
 import data.model.Param;
 
 /*
-CLASE PARAM - Para mostrar y donde se eligen los parámetros de la aplicación para la
+    CLASE PARAM - Para mostrar y donde se eligen los parámetros de la aplicación para la
     busqueda de la ruta.
  */
 public class Parametros extends AppCompatActivity {
@@ -65,21 +65,7 @@ public class Parametros extends AppCompatActivity {
         cBAutovia = (CheckBox) findViewById(R.id.cBAutovia);
         cBFerry = (CheckBox) findViewById(R.id.cBFerry);
 
-        //btIncidencias = (Button) findViewById(R.id.btIncidencias);
-
         Param p = new Param(); // No se puede crear un nuevo param, debería cogerlo de configuración
-        //if (p.isActivarincidencias()){ btIncidencias.setVisibility(View.GONE);}
-
-        // Abrir Activity para configurar las Incidencias
-        /*
-        btIncidencias.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent i = new Intent(Parametros.this, Incidencias.class);
-                startActivity(i);
-            }
-        });
-        */
 
         if (RbOpcionCar.isChecked()){ p.setRutacoche(true); } else { p.setRutacoche(false);}
         if (RbOpcionPie.isChecked()){ p.setRutapie(true); } else { p.setRutapie(false);}
@@ -94,6 +80,7 @@ public class Parametros extends AppCompatActivity {
         if (cBFerry.isChecked()){ p.setFerry(true); } else { p.setFerry(false);}
 
         // Enviar Param a las funciones de Logic
+
 
     }
 

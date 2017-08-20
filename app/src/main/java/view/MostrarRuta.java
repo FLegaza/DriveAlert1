@@ -33,6 +33,7 @@ import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.model.Ruta;
 import logic.GetIncidencias;
+import logic.GetURLDirection;
 
 
 public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener {
@@ -81,7 +82,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     }
 
     protected void configureShowRoute() {
-
 
         // Mostrar el botón si en configuración la variable activarIncidencias está a TRUE;
 
@@ -134,10 +134,20 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
             e.printStackTrace();
         }
 
+        String stringParam = "&mode=driving&avoid=tolls&avoid=highways&avoid=ferry";
+        String var =  getString(R.string.direction_url_api)
+                + "origin=" + originEncode
+                + "&destination=" + destinationEncode
+                + stringParam
+                + "&key=" + getString(R.string.google_maps_api_key);
+        /*
         return  getString(R.string.direction_url_api)
                 + "origin=" + originEncode
                 + "&destination=" + destinationEncode
+                + stringParam
                 + "&key=" + getString(R.string.google_maps_api_key);
+        */
+        return var;
     }
 
     protected void updateGoogleMap() {
@@ -148,7 +158,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         destinoMarkers = new ArrayList<>();
 
         for (Ruta ruta : this.rutas) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ruta.latorigen, 16));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ruta.latorigen, 10));
             ((TextView) findViewById(R.id.tvDuration)).setText(ruta.duracionStr); //ruta.dur.text
             ((TextView) findViewById(R.id.tvDistance)).setText(ruta.distanciaStr); // ruta.dist.text
 
@@ -210,8 +220,8 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng grn = new LatLng(37.1793, -3.5995);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(grn, 18));
-        origenMarkers.add(mMap.addMarker(new MarkerOptions().title("Granada").position(grn)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(grn, 10));
+        //origenMarkers.add(mMap.addMarker(new MarkerOptions().title("Granada").position(grn)));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
