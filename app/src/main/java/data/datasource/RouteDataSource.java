@@ -10,4 +10,5 @@ public interface RouteDataSource {
 
     void save(Ruta route);
     Ruta get();
+    void reset();
 }

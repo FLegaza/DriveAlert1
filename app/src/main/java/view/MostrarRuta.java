@@ -172,6 +172,10 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         }
     }
 
+    private void updateDatasource(Ruta route) {
+        injector.getRouteDataSource().save(route);
+    }
+
     // MARCADOR CLICKABLE PARA MOSTRAR LA DESCRIPCION DE LA INCIDENCIA
     /*
     public class MarkerDemoActivity extends android.support.v4.app.FragmentActivity implements OnMarkerClickListener
@@ -253,6 +257,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         pDEspera.dismiss();
 
         updateGoogleMap();
+        updateDatasource(rutas.size() > 0 ? rutas.get(0) : null);
     }
 
     // CREAR UN LISTENER PARA LAS INCIDENCIAS,

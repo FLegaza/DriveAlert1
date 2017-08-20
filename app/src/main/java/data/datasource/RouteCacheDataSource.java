@@ -12,6 +12,8 @@ public final class RouteCacheDataSource implements RouteDataSource {
 
 
     public void save(Ruta route) {
+        if (route == null) return;
+
         try {
             cache = (Ruta) route.clone();
         } catch(CloneNotSupportedException exception) {
@@ -25,5 +27,9 @@ public final class RouteCacheDataSource implements RouteDataSource {
         } catch(CloneNotSupportedException exception) {
             return null;
         }
+    }
+
+    public void reset() {
+        cache = null;
     }
 }
