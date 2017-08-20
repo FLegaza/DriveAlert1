@@ -1,6 +1,5 @@
 package data;
 
-
 public class Param {
 
     private boolean rutacoche = true;
@@ -13,6 +12,7 @@ public class Param {
     private boolean peaje = true;
     private boolean autovia = false;
     private boolean ferry = true;
+
     private boolean incicam = true;
     private boolean incisensor = true;
     private boolean inciradar = true;
