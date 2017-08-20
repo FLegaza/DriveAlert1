@@ -2,7 +2,7 @@ package logic;
 
 import java.io.UnsupportedEncodingException;
 
-import data.Param;
+import data.model.Param;
 
 /*
 Clase para crear la URL para obtener todas las incidencias de tráfico.

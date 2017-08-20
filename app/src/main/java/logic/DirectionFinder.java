@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.Ruta;
+import data.model.Ruta;
 
 /*
     CLASE DIRECTION FINDER - Clase que se encarga de (crear la URL) para coger el JSON, parsearlo y

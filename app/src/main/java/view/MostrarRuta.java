@@ -31,7 +31,7 @@ import java.util.List;
 
 import logic.DirectionFinder;
 import logic.DirectionFinderListener;
-import data.Ruta;
+import data.model.Ruta;
 import logic.GetIncidencias;
 
 
