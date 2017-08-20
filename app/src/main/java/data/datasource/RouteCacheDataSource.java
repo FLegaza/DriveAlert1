@@ -6,16 +6,24 @@ import data.model.Ruta;
  * Created by miguelangel on 20/8/17.
  */
 
-final class RouteCacheDataSource implements RouteDataSource {
+public final class RouteCacheDataSource implements RouteDataSource {
 
     private Ruta cache = null;
 
 
     public void save(Ruta route) {
-        cache = route;
+        try {
+            cache = (Ruta) route.clone();
+        } catch(CloneNotSupportedException exception) {
+            cache = null;
+        }
     }
 
     public Ruta get() {
-        return cache;
+        try {
+            return (Ruta) cache.clone();
+        } catch(CloneNotSupportedException exception) {
+            return null;
+        }
     }
 }

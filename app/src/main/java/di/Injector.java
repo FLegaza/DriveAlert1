@@ -6,6 +6,6 @@ import data.datasource.RouteDataSource;
  * Created by miguelangel on 20/8/17.
  */
 
-interface Injector {
+public interface Injector {
     RouteDataSource getRouteDataSource();
 }

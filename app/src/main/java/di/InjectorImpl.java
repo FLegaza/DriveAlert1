@@ -7,7 +7,7 @@ import data.datasource.RouteDataSource;
  * Created by miguelangel on 20/8/17.
  */
 
-final class InjectorImpl implements Injector {
+public final class InjectorImpl implements Injector {
 
     private static Injector injector = null;
     public static Injector getInstance() {

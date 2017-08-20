@@ -1,7 +1,6 @@
 package view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +9,16 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
+import data.datasource.RouteDataSource;
+import data.model.Ruta;
+import di.Injector;
+import di.library.BaseActivity;
+
 /*  CLASE SelectRuta
     Clase-Activity donde se selecciona el origen y destino de la ruta para la que se quieren conocer
     distancia, duración y las posibles incidencias de ésta.
  */
-public class SelectRuta extends AppCompatActivity {
+public class SelectRuta extends BaseActivity {
 
     public TextView tvOrig;
     public TextView tvDest;
@@ -22,6 +26,9 @@ public class SelectRuta extends AppCompatActivity {
     public EditText etDest;
     public Button btnIr;
     public Button btnParam;
+
+    private RouteDataSource datasource = injector.getRouteDataSource();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +55,28 @@ public class SelectRuta extends AppCompatActivity {
         btnIr.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String origen = etOrig.getText().toString();
-                String destino = etDest.getText().toString();
-                Intent i = new Intent(SelectRuta.this, MostrarRuta.class);
-                i.putExtra("origen",origen);
-                i.putExtra("destino",destino);
-                // Faltaría comprobación de que no están vacíos los campos
-                startActivity(i);
+                Ruta ruta = getRouteFromFields();
+                if (ruta == null) {
+                    // TODO alert with invalid data!
+                } else {
+                    datasource.save(ruta);
+                    Intent i = new Intent(SelectRuta.this, MostrarRuta.class);
+                    startActivity(i);
+                }
             }
         });
 
+    }
+
+    private Ruta getRouteFromFields() {
+        String orig = etOrig.getText().toString();
+        String dest = etDest.getText().toString();
+        if (orig.isEmpty() || dest.isEmpty()) return null;
+
+        Ruta ruta = new Ruta();
+        ruta.setOrigen(orig);
+        ruta.setDestino(dest);
+
+        return ruta;
     }
 }
