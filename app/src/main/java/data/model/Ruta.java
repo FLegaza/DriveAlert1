@@ -1,4 +1,4 @@
-package data;
+package data.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -9,7 +9,7 @@ import java.util.List;
     Para guardar el origen, destino, duración y distancia de una ruta,
     una lista de rutas y poder usar esa información en la aplicación.
  */
-public class Ruta {
+public class Ruta implements Cloneable {
 
     public String idRuta;
 
@@ -52,4 +52,8 @@ public class Ruta {
     }
     public void setLatdestino(LatLng latdestino) { this.latdestino = latdestino; }
 
-}
+     public Object clone() throws CloneNotSupportedException {
+         return super.clone();
+     }
+
+ }

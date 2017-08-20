@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
-import data.Param;
+import data.model.Param;
 
 public class Incidencias extends AppCompatActivity {
 

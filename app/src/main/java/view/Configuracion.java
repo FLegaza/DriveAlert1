@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
-import data.Param;
-
 public class Configuracion extends AppCompatActivity {
 
     public TextView tvConfig;

@@ -1,6 +1,6 @@
 package logic;
 
-import data.Ruta;
+import data.model.Ruta;
 import java.util.List;
 
 public interface DirectionFinderListener {

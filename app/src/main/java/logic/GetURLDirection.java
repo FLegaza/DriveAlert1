@@ -4,7 +4,7 @@ package logic;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import data.Param;
+import data.model.Param;
 
 import static com.project.francisco.drivealert.R.string.direction_url_api;
 import static com.project.francisco.drivealert.R.string.google_maps_api_key;

@@ -1,6 +1,5 @@
 package view;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
-import data.Param;
+import data.model.Param;
 
 /*
     CLASE PARAM - Para mostrar y donde se eligen los parámetros de la aplicación para la

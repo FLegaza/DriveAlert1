@@ -1,4 +1,4 @@
-package data;
+package data.model;
 
 /*
 Clase INCIDENCIA - Creada para albergar cada una de las incidencias de tráfico que se recojan.

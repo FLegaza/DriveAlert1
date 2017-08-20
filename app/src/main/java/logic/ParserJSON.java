@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.Incidencia;
-import data.Ruta;
+import data.model.Incidencia;
+import data.model.Ruta;
 
 public class ParserJSON {
 

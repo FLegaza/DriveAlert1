@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,14 +28,15 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import di.library.BaseActivity;
 import logic.DirectionFinder;
 import logic.DirectionFinderListener;
-import data.Ruta;
+import data.model.Ruta;
 import logic.GetIncidencias;
 import logic.GetURLDirection;
 
 
-public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback, DirectionFinderListener {
+public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener {
 
     public TextView tvOrigShow;
     public TextView tvDestShow;
@@ -56,6 +56,7 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
     private ProgressDialog pDEspera;
 
     private List<Ruta> rutas;
+    private Ruta selectedRoute = injector.getRouteRepository().getSelected();
 
 
     @Override
@@ -111,28 +112,24 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
     }
 
     protected void loadDirectionFromRoute() {
-        Bundle extras = getIntent().getExtras();
-        String origen  = extras.getString("origen");
-        String destino = extras.getString("destino");
-
-        tvOrigShow.setText(origen);
-        tvDestShow.setText(destino);
+        tvOrigShow.setText(selectedRoute.origen);
+        tvDestShow.setText(selectedRoute.destino);
 
         try {
-            String directionURL = getURLDirectionFrom(origen, destino);
+            String directionURL = getURLDirectionFrom(selectedRoute);
             new DirectionFinder(this, directionURL).execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
-    // Cambiar función por la de los parámetros (GetURLDirection)
-    protected String getURLDirectionFrom(String origin, String destination) {
+
+    protected String getURLDirectionFrom(Ruta route) {
         String originEncode = null;
         String destinationEncode  = null;
 
         try {
-            originEncode = URLEncoder.encode(origin, "utf-8");
-            destinationEncode = URLEncoder.encode(destination, "utf-8");
+            originEncode = URLEncoder.encode(route.origen, "utf-8");
+            destinationEncode = URLEncoder.encode(route.destino, "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -183,6 +180,10 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
+    }
+
+    private void updateDatasource(Ruta route) {
+        injector.getRouteRepository().setSelected(route);
     }
 
     // MARCADOR CLICKABLE PARA MOSTRAR LA DESCRIPCION DE LA INCIDENCIA
@@ -266,6 +267,7 @@ public class MostrarRuta extends AppCompatActivity implements OnMapReadyCallback
         pDEspera.dismiss();
 
         updateGoogleMap();
+        updateDatasource(rutas.size() > 0 ? rutas.get(0) : null);
     }
 
     // CREAR UN LISTENER PARA LAS INCIDENCIAS,
