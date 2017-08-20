@@ -55,7 +55,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     private ProgressDialog pDEspera;
 
     private List<Ruta> rutas;
-    private Ruta selectedRoute = injector.getRouteDataSource().get();
+    private Ruta selectedRoute = injector.getRouteRepository().getSelected();
 
 
     @Override
@@ -173,7 +173,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     }
 
     private void updateDatasource(Ruta route) {
-        injector.getRouteDataSource().save(route);
+        injector.getRouteRepository().setSelected(route);
     }
 
     // MARCADOR CLICKABLE PARA MOSTRAR LA DESCRIPCION DE LA INCIDENCIA

@@ -1,11 +1,13 @@
 package di;
 
-import data.datasource.RouteDataSource;
+import data.repository.RouteRepository;
 
 /**
  * Created by miguelangel on 20/8/17.
  */
 
 public interface Injector {
-    RouteDataSource getRouteDataSource();
+
+    RouteRepository getRouteRepository();
+
 }

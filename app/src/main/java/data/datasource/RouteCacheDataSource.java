@@ -1,5 +1,7 @@
 package data.datasource;
 
+import java.util.List;
+
 import data.model.Ruta;
 
 /**
@@ -27,6 +29,10 @@ public final class RouteCacheDataSource implements RouteDataSource {
         } catch(CloneNotSupportedException exception) {
             return null;
         }
+    }
+
+    public List<Ruta> getList() {
+        return null;
     }
 
     public void reset() {

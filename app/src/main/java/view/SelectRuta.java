@@ -11,6 +11,7 @@ import com.project.francisco.drivealert.R;
 
 import data.datasource.RouteDataSource;
 import data.model.Ruta;
+import data.repository.RouteRepository;
 import di.Injector;
 import di.library.BaseActivity;
 
@@ -27,7 +28,7 @@ public class SelectRuta extends BaseActivity {
     public Button btnIr;
     public Button btnParam;
 
-    private RouteDataSource datasource = injector.getRouteDataSource();
+    private RouteRepository repository = injector.getRouteRepository();
 
 
     @Override
@@ -59,7 +60,7 @@ public class SelectRuta extends BaseActivity {
                 if (ruta == null) {
                     // TODO alert with invalid data!
                 } else {
-                    datasource.save(ruta);
+                    repository.setSelected(ruta);
                     Intent i = new Intent(SelectRuta.this, MostrarRuta.class);
                     startActivity(i);
                 }

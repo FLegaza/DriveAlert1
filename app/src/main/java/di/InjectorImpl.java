@@ -2,6 +2,8 @@ package di;
 
 import data.datasource.RouteCacheDataSource;
 import data.datasource.RouteDataSource;
+import data.datasource.RouteLocalDataSource;
+import data.repository.RouteRepository;
 
 /**
  * Created by miguelangel on 20/8/17.
@@ -18,11 +20,23 @@ public final class InjectorImpl implements Injector {
     }
 
 
-    private RouteDataSource routeDatasource = null;
+    private RouteDataSource routeCacheDatasource = null;
+    private RouteDataSource routeLocalDatasource = null;
 
-    public RouteDataSource getRouteDataSource() {
-        if (routeDatasource != null) return routeDatasource;
-        routeDatasource = new RouteCacheDataSource();
-        return routeDatasource;
+    private RouteDataSource getRouteCacheDataSource() {
+        if (routeCacheDatasource != null) return routeCacheDatasource;
+        routeCacheDatasource = new RouteCacheDataSource();
+        return routeCacheDatasource;
+    }
+
+    private RouteDataSource getRouteLocalDataSource() {
+        if (routeLocalDatasource != null) return routeLocalDatasource;
+        routeLocalDatasource = new RouteLocalDataSource();
+        return routeLocalDatasource;
+    }
+
+    @Override
+    public RouteRepository getRouteRepository() {
+        return new RouteRepository(getRouteLocalDataSource(), getRouteCacheDataSource());
     }
 }
