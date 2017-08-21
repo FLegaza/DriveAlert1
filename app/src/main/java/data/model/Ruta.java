@@ -4,13 +4,17 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
- /*
-    CLASE RUTA
-    Para guardar el origen, destino, duración y distancia de una ruta,
-    una lista de rutas y poder usar esa información en la aplicación.
- */
-public class Ruta implements Cloneable {
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+/*
+   CLASE RUTA
+   Para guardar el origen, destino, duración y distancia de una ruta,
+   una lista de rutas y poder usar esa información en la aplicación.
+*/
+public class Ruta extends RealmObject implements Cloneable {
+    @PrimaryKey
     public String idRuta;
 
     // Origen y Destino

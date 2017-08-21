@@ -1,6 +1,8 @@
 package data.model;
 
-public class Param {
+import io.realm.RealmObject;
+
+public class Param extends RealmObject {
 
     private boolean rutacoche = true;
     private boolean rutapie = false;

@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 import com.project.francisco.drivealert.R;
 
+import io.realm.Realm;
+
 /*  CLASE_PRINCIPAL MainActivity
     Clase-Activity con la cual arranca la aplicación.
  */
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Realm.init(this);
 
         btnNuevaRuta = (Button) findViewById(R.id.btnNuevaRuta);
         btnRutasGuardadas = (Button) findViewById(R.id.btnRutasGuardadas);

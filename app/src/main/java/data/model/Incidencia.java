@@ -4,7 +4,9 @@ package data.model;
 Clase INCIDENCIA - Creada para albergar cada una de las incidencias de tráfico que se recojan.
  */
 
-public class Incidencia {
+import io.realm.RealmObject;
+
+public class Incidencia extends RealmObject{
 
     // Atributos de la clase Incidencia
     private String carretera;
