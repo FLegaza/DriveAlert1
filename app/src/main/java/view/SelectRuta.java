@@ -30,7 +30,6 @@ public class SelectRuta extends BaseActivity {
 
     private RouteRepository repository = injector.getRouteRepository();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

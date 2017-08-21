@@ -28,12 +28,15 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.model.Param;
 import di.library.BaseActivity;
 import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.model.Ruta;
 import logic.GetIncidencias;
+import logic.GetIncidenciasListener;
 import logic.GetURLDirection;
+import logic.GetURLTrafico;
 
 
 public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener {
@@ -90,20 +93,17 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         // descripción sería la carretera junto a las descripcion de la incidencia.
         // (La traducción no sé si será posible)
 
+
+        setUpMapIfNeeded();
+        loadDirectionFromRoute();
+
         btObtenerIncidencias.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 // Ejecutar el algoritmo de las incidencias
-                try {
-                    new GetIncidencias().execute();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                loadTraficFromRoute();
             }
         });
-
-        setUpMapIfNeeded();
-        loadDirectionFromRoute();
     }
 
     private void setUpMapIfNeeded() {
@@ -114,10 +114,18 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     protected void loadDirectionFromRoute() {
         tvOrigShow.setText(selectedRoute.origen);
         tvDestShow.setText(selectedRoute.destino);
-
         try {
             String directionURL = getURLDirectionFrom(selectedRoute);
             new DirectionFinder(this, directionURL).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void loadTraficFromRoute() {
+        try {
+            String trafficURL = getURLTraficFrom();
+            // new GetIncidencias(this, trafficURL).execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -140,14 +148,37 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
                 + "&destination=" + destinationEncode
                 + stringParam
                 + "&key=" + getString(R.string.google_maps_api_key);
-        /*
-        return  getString(R.string.direction_url_api)
-                + "origin=" + originEncode
-                + "&destination=" + destinationEncode
-                + stringParam
-                + "&key=" + getString(R.string.google_maps_api_key);
-        */
+
         return var;
+    }
+
+    protected String getURLTraficFrom() throws UnsupportedEncodingException {
+        Param par = new Param();
+
+        String varCam = par.isIncicam() ? "True" : "False";
+        String varSensor = par.isIncisensor() ? "True" : "False";
+        String varReten = par.isIncireten() ? "True" : "False";
+        String varObra = par.isInciobra() ? "True" : "False";
+        String varRadar = par.isInciradar() ? "True" : "False";
+
+        String direccion = "http://infocar.dgt.es/etraffic/BuscarElementos?latNS=37.40515&longNS=-5.87751&latSW=37.34376&longSW=-6.06686" +
+                "&zoom=13&accion=getElementos" +
+                "&Camaras="+ varCam +
+                "&SensoresTrafico=" + varSensor +
+                "&SensoresMeteorologico=true" +
+                "&Paneles=true" +
+                "&Radares=" + varRadar +
+                "&IncidenciasRETENCION=" + varReten +
+                "&IncidenciasOBRAS=" + varObra +
+                "&IncidenciasMETEOROLOGICA=true" +
+                "&IncidenciasPUERTOS=true" +
+                "&IncidenciasOTROS=true" +
+                "&IncidenciasEVENTOS=true" +
+                "&IncidenciasRESTRICCIONES=true" +
+                "&niveles=true" +
+                "&caracter=acontecimiento";
+
+        return direccion;
     }
 
     protected void updateGoogleMap() {
@@ -185,36 +216,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     private void updateDatasource(Ruta route) {
         injector.getRouteRepository().setSelected(route);
     }
-
-    // MARCADOR CLICKABLE PARA MOSTRAR LA DESCRIPCION DE LA INCIDENCIA
-    /*
-    public class MarkerDemoActivity extends android.support.v4.app.FragmentActivity implements OnMarkerClickListener
-    {
-        private Marker myMarker;
-
-        private void setUpMap()
-        {
-            .......
-            googleMap.setOnMarkerClickListener(this);
-
-            myMarker = googleMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title("My Spot")
-                        .snippet("This is my spot!")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-            ......
-        }
-
-        @Override
-        public boolean onMarkerClick(final Marker marker) {
-
-            if (marker.equals(myMarker))
-            {
-                //handle click here
-            }
-        }
-    }
-     */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -270,8 +271,15 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         updateDatasource(rutas.size() > 0 ? rutas.get(0) : null);
     }
 
-    // CREAR UN LISTENER PARA LAS INCIDENCIAS,
-    // Comparar cada PUNTO DE LA RUTA guardado con alguna incidencia por si coincide y mostrar esa incidencia.
+    public void onGetIncidenciasStart(){
+        pDEspera = ProgressDialog.show(this, "Espere","Obteniendo Incidencias...",true);
+    }
+
+    public void onGetIncidenciasSuccess(){
+        pDEspera.dismiss();
+
+    }
+
 
 }
 
