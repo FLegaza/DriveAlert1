@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -14,6 +15,7 @@ import io.realm.annotations.PrimaryKey;
    una lista de rutas y poder usar esa información en la aplicación.
 */
 public class Ruta extends RealmObject implements Cloneable {
+
     @PrimaryKey
     public String idRuta;
 
@@ -32,7 +34,7 @@ public class Ruta extends RealmObject implements Cloneable {
     public int duracionInt;
 
     public List<LatLng> PuntosRuta;
-    public List<Incidencia> IncidenciasRuta;
+    public RealmList<Incidencia> IncidenciasRuta;
     public String getOrigen() {
         return origen;
     }
