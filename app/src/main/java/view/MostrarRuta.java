@@ -240,7 +240,50 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         mMap.setMyLocationEnabled(true);
 
         updateGoogleMap();
+
+        // Set a listener for marker click.
+        // mMap.setOnMarkerClickListener(this);
+
     }
+
+
+    /*
+    // Cambiar el onMarkerClick para rellenar el TextView de la incidencia.
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(this,
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+    Eventos de clic de marcadores
+
+    Puedes usar un OnMarkerClickListener para escuchar eventos de clic en el marcador.
+    Para configurar este receptor en el mapa, llama a GoogleMap.setOnMarkerClickListener(OnMarkerClickListener).
+    Cuando un usuario haga un clic en un marcador, se llamará a onMarkerClick(Marker) y el marcador
+     se pasará como un argumento. Este método devuelve un booleano que indica si consumiste el evento
+     (es decir, si deseas suprimir el comportamiento predeterminado). Si devuelve un valor false, el
+     comportamiento predeterminado se sumará al comportamiento personalizado que elijas.
+    El comportamiento predeterminado de un evento de clic de marcador consiste en mostrar su ventana
+    de información (si está disponible) y mover la cámara de modo que el marcador quede centrado en el mapa.
+
+    */
+
+
 
     @Override
     public void onDirectionFinderStart() {
