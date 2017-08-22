@@ -3,6 +3,7 @@ package data.model;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -17,7 +18,7 @@ import io.realm.annotations.PrimaryKey;
 public class Ruta extends RealmObject implements Cloneable {
 
     @PrimaryKey
-    public String idRuta;
+    public String idRuta = UUID.randomUUID().toString();
 
     // Origen y Destino
     public String origen;
@@ -33,8 +34,11 @@ public class Ruta extends RealmObject implements Cloneable {
     public String duracionStr;
     public int duracionInt;
 
-    public List<LatLng> PuntosRuta;
+    public List<LatLng> PuntosRuta; // Cambiar también por RealmList???
     public RealmList<Incidencia> IncidenciasRuta;
+
+    // Getter - Setter
+    public String getIdRuta(){ return idRuta; }
     public String getOrigen() {
         return origen;
     }
@@ -47,6 +51,9 @@ public class Ruta extends RealmObject implements Cloneable {
     public LatLng getLatdestino() {
         return latdestino;
     }
+    public List<LatLng> getPuntosRuta() { return PuntosRuta; }
+    public RealmList<Incidencia> getIncidenciasRuta() { return IncidenciasRuta; }
+
     public void setOrigen(String origen) {
         this.origen = origen;
     }
@@ -57,6 +64,8 @@ public class Ruta extends RealmObject implements Cloneable {
         this.latorigen = latorigen;
     }
     public void setLatdestino(LatLng latdestino) { this.latdestino = latdestino; }
+    public void setPuntosRuta(List<LatLng> puntosRuta) { this.PuntosRuta = puntosRuta; }
+    public void setIncidenciasRuta(RealmList<Incidencia> incidenciasRuta) { this.IncidenciasRuta = incidenciasRuta; }
 
      public Object clone() throws CloneNotSupportedException {
          return super.clone();

@@ -30,6 +30,7 @@ import java.util.List;
 
 import data.model.Param;
 import di.library.BaseActivity;
+import io.realm.Realm;
 import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.model.Ruta;
@@ -66,6 +67,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_route);
+        Realm.init(this);
 
         injectViews();
         configureShowRoute();
@@ -101,7 +103,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
             @Override
             public void onClick(View v){
                 // Ejecutar el algoritmo de las incidencias
-                loadTraficFromRoute();
+                loadTrafficFromRoute();
             }
         });
     }
@@ -122,9 +124,9 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         }
     }
 
-    protected void loadTraficFromRoute() {
+    protected void loadTrafficFromRoute() {
         try {
-            String trafficURL = getURLTraficFrom();
+            String trafficURL = getURLTrafficFrom();
             // new GetIncidencias(this, trafficURL).execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -152,7 +154,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         return var;
     }
 
-    protected String getURLTraficFrom() throws UnsupportedEncodingException {
+    protected String getURLTrafficFrom() throws UnsupportedEncodingException {
         Param par = new Param();
 
         String varCam = par.isIncicam() ? "True" : "False";
