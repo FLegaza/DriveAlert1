@@ -102,9 +102,9 @@ public class DirectionFinder {
             ruta.duracionInt = jsonDuracion.getInt("value");
             ruta.destino = jsonLeg.getString("end_address");
             ruta.origen = jsonLeg.getString("start_address");
-            ruta.latorigen = new LatLng(jsonStartLocation.getDouble("lat"), jsonStartLocation.getDouble("lng"));
-            ruta.latdestino = new LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng"));
-            ruta.PuntosRuta = decodePolyLine(overview_polylineJson.getString("points"));
+            ruta.setLatorigen(new LatLng(jsonStartLocation.getDouble("lat"), jsonStartLocation.getDouble("lng")));
+            ruta.setLatdestino(new LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng")));
+            ruta.setPuntosRuta(decodePolyLine(overview_polylineJson.getString("points")));
 
             rutas.add(ruta);
         }

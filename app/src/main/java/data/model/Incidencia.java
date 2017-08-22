@@ -33,6 +33,8 @@ public class Incidencia extends RealmObject{
     private String horaFin;
     private String nivel;
 
+    public Incidencia() {}
+
     public Incidencia(String carretera, Integer estado, String alias, String sentido,
                       Double PK, String tipo, Double lng, String codEle, Double lat,
                       String precision, String fecha, String poblacion, String descripcion,

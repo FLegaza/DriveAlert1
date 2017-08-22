@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Param;
+import data.repository.RouteRepository;
 import di.library.BaseActivity;
 import io.realm.Realm;
 import logic.DirectionFinder;
@@ -60,7 +61,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     private ProgressDialog pDEspera;
 
     private List<Ruta> rutas;
-    private Ruta selectedRoute = injector.getRouteRepository().getSelected();
+    private RouteRepository repository = injector.getRouteRepository();
 
 
     @Override
@@ -114,6 +115,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     }
 
     protected void loadDirectionFromRoute() {
+        Ruta selectedRoute = repository.getSelected();
         tvOrigShow.setText(selectedRoute.origen);
         tvDestShow.setText(selectedRoute.destino);
         try {
@@ -191,32 +193,38 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         destinoMarkers = new ArrayList<>();
 
         for (Ruta ruta : this.rutas) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ruta.latorigen, 10));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ruta.getLatorigen(), 10));
             ((TextView) findViewById(R.id.tvDuration)).setText(ruta.duracionStr); //ruta.dur.text
             ((TextView) findViewById(R.id.tvDistance)).setText(ruta.distanciaStr); // ruta.dist.text
 
             origenMarkers.add(mMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
                     .title(ruta.origen)
-                    .position(ruta.latorigen)));
+                    .position(ruta.getLatorigen())));
             destinoMarkers.add(mMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green))
                     .title(ruta.destino)
-                    .position(ruta.latdestino)));
+                    .position(ruta.getLatdestino())));
             PolylineOptions polylineOptions = new PolylineOptions().
                     geodesic(true).
                     color(Color.BLUE).
                     width(10);
 
             for (int i = 0; i < ruta.PuntosRuta.size(); i++)
-                polylineOptions.add(ruta.PuntosRuta.get(i));
+                polylineOptions.add(ruta.getPuntosRuta().get(i));
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
     }
 
-    private void updateDatasource(Ruta route) {
-        injector.getRouteRepository().setSelected(route);
+    private void updateDatasource(List<Ruta> routes) {
+        Ruta lastRoute = null;
+
+        for (Ruta route:routes) {
+            repository.persistRoute(route);
+            lastRoute = route;
+        }
+        repository.setSelected(lastRoute);
     }
 
     @Override
@@ -313,7 +321,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         pDEspera.dismiss();
 
         updateGoogleMap();
-        updateDatasource(rutas.size() > 0 ? rutas.get(0) : null);
+        updateDatasource(rutas);
     }
 
     public void onGetIncidenciasStart(){
