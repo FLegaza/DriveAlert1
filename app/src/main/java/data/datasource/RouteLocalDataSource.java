@@ -1,5 +1,6 @@
 package data.datasource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Ruta;
@@ -15,27 +16,10 @@ public class RouteLocalDataSource implements RouteDataSource {
 
     @Override
     public void save(Ruta route) {
-        // TODO save in Database route
-        // El init lo hago en Mostrar Ruta.
-        // Get a Realm instance for this thread
         Realm realm = Realm.getDefaultInstance();
-        /*
-        Primera opción
-         */
+
         realm.beginTransaction();                       // Se podría hacer asíncrono, pero en este caso no hace falta,
-        Ruta realmRoute = realm.copyToRealm(route);     // ya que no se van a guardar dos rutas a la vez o por otro lado.
-        realm.commitTransaction();
-        /*
-        Segunda opción
-         */
-        realm.beginTransaction();
-        Ruta ruta = realm.createObject(Ruta.class);
-        ruta.setOrigen(route.origen);
-        ruta.setDestino(route.destino);
-        ruta.setLatorigen(route.latorigen);
-        ruta.setLatdestino(route.latdestino);
-        ruta.setPuntosRuta(route.PuntosRuta);
-        ruta.setIncidenciasRuta(route.IncidenciasRuta);
+        realm.copyToRealm(route);     // ya que no se van a guardar dos rutas a la vez o por otro lado.
         realm.commitTransaction();
 
         realm.close();
@@ -43,36 +27,22 @@ public class RouteLocalDataSource implements RouteDataSource {
 
     @Override
     public Ruta get() {
-        // TODO using local DB get first route
-        // Get a Realm instance for this thread
         Realm realm = Realm.getDefaultInstance();
-        // realm.beginTransaction();
-
         RealmQuery<Ruta> query = realm.where(Ruta.class);
-        RealmResults<Ruta> results = query.findAll();
-
-        // ¿Cómo devuelvo una ruta para el return?? Results devolvería todas, bucle ID?
-        // RealmResults are ordered, and you can access the individual objects through an index.. ¿Cómo?
-
-        // realm.commitTransaction();
-        realm.close();
-        return null;
+        return query.findAll().last();
     }
 
     @Override
     public List<Ruta> getList() {
-        // TODO using local DB get all routes
-
-        // Get a Realm instance for this thread
         Realm realm = Realm.getDefaultInstance();
-        // realm.beginTransaction();
         RealmQuery<Ruta> query = realm.where(Ruta.class);
-        RealmResults<Ruta> results = query.findAll();
 
-        // realm.commitTransaction();
-        realm.close();
+        ArrayList<Ruta> routes = new ArrayList<>();
+        for (Ruta ruta:query.findAll()) {
+            routes.add(ruta);
+        }
 
-        return results;
+        return routes;
     }
 
     @Override
