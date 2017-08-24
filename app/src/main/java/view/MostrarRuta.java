@@ -2,6 +2,8 @@ package view;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
@@ -129,7 +131,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     protected void loadTrafficFromRoute() {
         try {
             String trafficURL = getURLTrafficFrom();
-            // new GetIncidencias(this, trafficURL).execute();
+            //new GetIncidencias(this, trafficURL).execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -138,6 +140,17 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     protected String getURLDirectionFrom(Ruta route) {
         String originEncode = null;
         String destinationEncode  = null;
+        SharedPreferences UserConfiguration = getSharedPreferences("UserConfiguration", Context.MODE_PRIVATE);
+        String car = UserConfiguration.getBoolean("OpcionCar",true) ? "&mode=driving" : "";
+        String bici = UserConfiguration.getBoolean("OpcionBici",true) ? "&mode=bicycling" : "";
+        String pie = UserConfiguration.getBoolean("OpcionPie",true) ? "&mode=walking" : "";
+        String publicbus = UserConfiguration.getBoolean("OpcionPublic",true)&&
+                UserConfiguration.getBoolean("OpcionPublicBus",true) ? "&mode=transit" : "";
+        String publictren = UserConfiguration.getBoolean("OpcionPublic",true)&&
+                UserConfiguration.getBoolean("OpcionPublicTren",true)? "&mode=transit" : "";
+        String peaje = UserConfiguration.getBoolean("Peaje",true) ? "&avoid=tolls" : "";
+        String autovia = UserConfiguration.getBoolean("Autovia",true) ? "&avoid=highways" : "";
+        String ferry = UserConfiguration.getBoolean("Ferry",true) ? "&avoid=ferry" : "";
 
         try {
             originEncode = URLEncoder.encode(route.origen, "utf-8");
@@ -146,34 +159,30 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
             e.printStackTrace();
         }
 
-        String stringParam = "&mode=driving&avoid=tolls&avoid=highways&avoid=ferry";
-        String var =  getString(R.string.direction_url_api)
+       return  getString(R.string.direction_url_api)
                 + "origin=" + originEncode
                 + "&destination=" + destinationEncode
-                + stringParam
+                + car + bici + pie + publicbus + publictren + peaje + autovia + ferry
                 + "&key=" + getString(R.string.google_maps_api_key);
-
-        return var;
     }
 
     protected String getURLTrafficFrom() throws UnsupportedEncodingException {
-        Param par = new Param();
+        SharedPreferences UserConfiguration = getSharedPreferences("UserConfiguration", Context.MODE_PRIVATE);
+        String Camaras = UserConfiguration.getBoolean("Camaras",true) ? "true" : "false";
+        String Sensores = UserConfiguration.getBoolean("Sensores",true) ? "true" : "false";
+        String Radares = UserConfiguration.getBoolean("Radares",true) ? "true" : "false";
+        String Retenciones = UserConfiguration.getBoolean("Retenciones",true) ? "true" : "false";
+        String Obras = UserConfiguration.getBoolean("Obras",true) ? "true" : "false";
 
-        String varCam = par.isIncicam() ? "True" : "False";
-        String varSensor = par.isIncisensor() ? "True" : "False";
-        String varReten = par.isIncireten() ? "True" : "False";
-        String varObra = par.isInciobra() ? "True" : "False";
-        String varRadar = par.isInciradar() ? "True" : "False";
-
-        String direccion = "http://infocar.dgt.es/etraffic/BuscarElementos?latNS=37.40515&longNS=-5.87751&latSW=37.34376&longSW=-6.06686" +
+        return "http://infocar.dgt.es/etraffic/BuscarElementos?latNS=37.40515&longNS=-5.87751&latSW=37.34376&longSW=-6.06686" +
                 "&zoom=13&accion=getElementos" +
-                "&Camaras="+ varCam +
-                "&SensoresTrafico=" + varSensor +
+                "&Camaras="+ Camaras +
+                "&SensoresTrafico=" + Sensores +
                 "&SensoresMeteorologico=true" +
                 "&Paneles=true" +
-                "&Radares=" + varRadar +
-                "&IncidenciasRETENCION=" + varReten +
-                "&IncidenciasOBRAS=" + varObra +
+                "&Radares=" + Radares +
+                "&IncidenciasRETENCION=" + Retenciones +
+                "&IncidenciasOBRAS=" + Obras +
                 "&IncidenciasMETEOROLOGICA=true" +
                 "&IncidenciasPUERTOS=true" +
                 "&IncidenciasOTROS=true" +
@@ -181,8 +190,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
                 "&IncidenciasRESTRICCIONES=true" +
                 "&niveles=true" +
                 "&caracter=acontecimiento";
-
-        return direccion;
     }
 
     protected void updateGoogleMap() {
@@ -239,9 +246,9 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
             //
-            //    ActivityCompat#requestPermissions
+            // ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            // public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
@@ -256,9 +263,8 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
 
     }
 
-
     /*
-    // Cambiar el onMarkerClick para rellenar el TextView de la incidencia.
+    // Cambiar el onMarkerClick para rellenar el TextView de la Incidencia pinchada.
     @Override
     public boolean onMarkerClick(final Marker marker) {
 
@@ -292,8 +298,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     de información (si está disponible) y mover la cámara de modo que el marcador quede centrado en el mapa.
 
     */
-
-
 
     @Override
     public void onDirectionFinderStart() {
@@ -332,7 +336,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         pDEspera.dismiss();
 
     }
-
 
 }
 

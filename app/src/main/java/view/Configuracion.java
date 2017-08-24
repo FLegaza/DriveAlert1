@@ -18,7 +18,6 @@ public class Configuracion extends AppCompatActivity {
     public ImageButton btEsp;
     public ImageButton btIng;
     public ImageButton btIta;
-    public CheckBox cbIncidencias;
     public Button btConfParam;
     public Button btConfIncidencias;
 
@@ -36,10 +35,9 @@ public class Configuracion extends AppCompatActivity {
         btIng = (ImageButton) findViewById(R.id.ibIng);
         btIta = (ImageButton) findViewById(R.id.ibIta);
 
-        //cbIncidencias = (CheckBox) findViewById(R.id.cBIncidencias);
-        //cbIncidencias.setChecked(false);
-
         btConfParam = (Button) findViewById(R.id.btConfParam);
+        btConfIncidencias = (Button) findViewById(R.id.btConfIncidencias);
+
         btConfParam.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -47,8 +45,7 @@ public class Configuracion extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        btConfIncidencias = (Button) findViewById(R.id.btConfIncidencias);
-        //btConfIncidencias.setVisibility(View.GONE);
+
         btConfIncidencias.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -57,21 +54,5 @@ public class Configuracion extends AppCompatActivity {
             }
         });
 
-        //Param p = new Param();
     }
-    /*
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.cBIncidencias:
-                if (checked)
-                    btConfIncidencias.setVisibility(View.VISIBLE);
-            else
-                    btConfIncidencias.setVisibility(View.GONE);
-                break;
-        }
-    }
-    */
 }

@@ -1,6 +1,7 @@
 package view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +22,6 @@ public class MainActivity extends AppCompatActivity {
     public Button btnConfiguracion;
     public Button btnSalir;
     public ImageButton ibtnAyuda;
-    // private static final String NOMBRE_BASE_DATOS = "DriveAlertBD.db";
-    // private static final int VERSION_ACTUAL = 1;
-    // SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +34,6 @@ public class MainActivity extends AppCompatActivity {
         btnConfiguracion = (Button) findViewById(R.id.btnConfiguracion);
         btnSalir = (Button) findViewById(R.id.btnSalir);
         ibtnAyuda = (ImageButton) findViewById(R.id.ibtnAyuda);
-
-        // PRUEBA PARA LA BASE DE DATOS
-        /*
-        //Abrimos la base de datos en modo escritura
-        BaseDeDatos alumnos = new BaseDeDatos(this, "Prueba", null, 2);
-        db = alumnos.getWritableDatabase();
-
-        //Si hemos abierto correctamente la base de datos
-        if(db != null){}
-        */
 
         // Abrir Activity de Nueva Ruta
         btnNuevaRuta.setOnClickListener(new View.OnClickListener(){
@@ -79,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 finish();
-                //Intent intent = new Intent(Intent.ACTION_MAIN);
-                //intent.addCategory(Intent.CATEGORY_HOME);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //startActivity(intent);
             }
         });
 
@@ -95,4 +79,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 }

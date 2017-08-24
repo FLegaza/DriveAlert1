@@ -37,6 +37,7 @@
     <string name="param9">Evitar Peajes</string>
     <string name="param10">Evitar Autopistas/Autovías</string>
     <string name="param11">Evitar Ferries</string>
+    <string name="guardar">Guardar</string>
 
     <string name="InciButton">Incidencias</string>
 
@@ -46,6 +47,8 @@
     <string name="incid3">Radares</string>
     <string name="incid4">Retenciones</string>
     <string name="incid5">Obras</string>
+
+    <string name="savedConf">Configuración guardada!</string>
 
     <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR CONFIGURACIÓN -->
     <string name="tituloConfiguracion">Configuración</string>

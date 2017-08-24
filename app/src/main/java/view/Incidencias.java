@@ -1,9 +1,14 @@
 package view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.francisco.drivealert.R;
 
@@ -17,14 +22,7 @@ public class Incidencias extends AppCompatActivity {
     public Switch SwRadar;
     public Switch SwReten;
     public Switch SwObra;
-
-    public String cam;
-    public String sen;
-    public String radar;
-    public String reten;
-    public String obra;
-
-    Param p;
+    public Button btGuardarInci;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,43 +35,39 @@ public class Incidencias extends AppCompatActivity {
         SwRadar = (Switch) findViewById(R.id.SwRadar);
         SwReten = (Switch) findViewById(R.id.SwReten);
         SwObra = (Switch) findViewById(R.id.SwObra);
+        btGuardarInci = (Button) findViewById(R.id.btGuardarInc);
+        CargarPreferencias();
 
-        Param p = new Param();
-
-        if (SwCamaras.isChecked()){ p.setIncicam(true); } else { p.setIncicam(false);}
-        if (SwSensores.isChecked()){ p.setIncisensor(true); } else { p.setIncisensor(false);}
-        if (SwRadar.isChecked()){ p.setInciradar(true); } else { p.setInciradar(false);}
-        if (SwReten.isChecked()){ p.setIncireten(true); } else { p.setIncireten(false);}
-        if (SwObra.isChecked()){ p.setInciobra(true); } else { p.setInciobra(false);}
-
-    }
-
-    // NO CONSIGO GUARDAR LA CONFIGURACIÓN PARA QUE AL CAMBIAR DE ACTIVITY NO SE CAMBIE LA CONFIGURACIÓN
-    // LO SUYO SERÍA GUARDAR LA CONFIGURACIÓN EN SQLITE PARA GUARDAR LA CONFIGURACIÓN PERMANENTEMENTE
-
-    @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putAll(savedInstanceState);
-        /*
-        savedInstanceState.putString(SwCamaras.toString(), cam);
-        savedInstanceState.putString(SwSensores.toString(), sen);
-        savedInstanceState.putString(SwRadar.toString(), radar);
-        savedInstanceState.putString(SwReten.toString(), reten);
-        savedInstanceState.putString(SwObra.toString(), obra);
-        super.onSaveInstanceState(savedInstanceState);
-          */
+        btGuardarInci.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GuardarPreferencias();
+                Toast saved = Toast.makeText(getApplicationContext(),
+                        getApplicationContext().getString(R.string.savedConf), Toast.LENGTH_SHORT);
+                saved.show();
+            }
+        });
 
     }
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        /*
-        cam = savedInstanceState.getString(SwCamaras.toString());
-        sen = savedInstanceState.getString(SwSensores.toString());
-        radar = savedInstanceState.getString(SwRadar.toString());
-        reten = savedInstanceState.getString(SwReten.toString());
-        obra = savedInstanceState.getString(SwObra.toString());
-        */
+
+    private void CargarPreferencias() {
+        SharedPreferences UserConfiguration = getSharedPreferences("UserConfiguration", Context.MODE_PRIVATE);
+        SwCamaras.setChecked(UserConfiguration.getBoolean("Camaras",true));
+        SwSensores.setChecked(UserConfiguration.getBoolean("Sensores",true));
+        SwRadar.setChecked(UserConfiguration.getBoolean("Radares",true));
+        SwReten.setChecked(UserConfiguration.getBoolean("Retenciones",true));
+        SwObra.setChecked(UserConfiguration.getBoolean("Obras",true));
     }
 
+    private void GuardarPreferencias (){
+        SharedPreferences UserConfiguration = getSharedPreferences("UserConfiguration", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = UserConfiguration.edit();
+        editor.putBoolean("Camaras",SwCamaras.isChecked());
+        editor.putBoolean("Sensores",SwSensores.isChecked());
+        editor.putBoolean("Radares",SwRadar.isChecked());
+        editor.putBoolean("Retenciones",SwReten.isChecked());
+        editor.putBoolean("Obras",SwObra.isChecked());
+        editor.commit();
+    }
 
 }

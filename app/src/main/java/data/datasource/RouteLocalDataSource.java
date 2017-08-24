@@ -8,18 +8,14 @@ import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
-/**
- * Created by miguelangel on 20/8/17.
- */
-
 public class RouteLocalDataSource implements RouteDataSource {
 
     @Override
     public void save(Ruta route) {
         Realm realm = Realm.getDefaultInstance();
 
-        realm.beginTransaction();                       // Se podría hacer asíncrono, pero en este caso no hace falta,
-        realm.copyToRealm(route);     // ya que no se van a guardar dos rutas a la vez o por otro lado.
+        realm.beginTransaction();
+        realm.copyToRealm(route);
         realm.commitTransaction();
 
         realm.close();

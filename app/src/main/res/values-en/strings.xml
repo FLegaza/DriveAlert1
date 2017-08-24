@@ -31,6 +31,7 @@
     <string name="param9">Avoid Tolls</string>
     <string name="param10">Avoid Highways</string>
     <string name="param11">Avoid Ferries</string>
+    <string name="guardar">Save</string>
 
     <string name="InciButton">Traffic Events</string>
 
@@ -40,6 +41,8 @@
     <string name="incid3">Radars</string>
     <string name="incid4">Traffic jams</string>
     <string name="incid5">Works</string>
+
+    <string name="savedConf">Configuration Saved!</string>
 
     <!-- STRINGS PARA EL ACTIVITY DE SELECCIONAR CONFIGURACIÓN -->
     <string name="tituloConfiguracion">Configuration</string>
