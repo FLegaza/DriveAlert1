@@ -67,7 +67,7 @@ public class Incidencias extends AppCompatActivity {
         editor.putBoolean("Radares",SwRadar.isChecked());
         editor.putBoolean("Retenciones",SwReten.isChecked());
         editor.putBoolean("Obras",SwObra.isChecked());
-        editor.commit();
+        editor.apply(); // edit.commit();
     }
 
 }

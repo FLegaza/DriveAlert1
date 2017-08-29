@@ -22,11 +22,8 @@
     <string name="param2">Route by Car</string>
     <string name="param3">Route on Foot</string>
     <string name="param4">Bicycle route</string>
-    <string name="param5">Public transport route</string>
-
-    <string name="param6">¿What kind of public transport?</string>
-    <string name="param7">Bus</string>
-    <string name="param8">Train</string>
+    <string name="param5">Bus</string>
+    <string name="param6">Train</string>
 
     <string name="param9">Avoid Tolls</string>
     <string name="param10">Avoid Highways</string>

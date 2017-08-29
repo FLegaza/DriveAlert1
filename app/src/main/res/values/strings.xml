@@ -28,11 +28,8 @@
     <string name="param2">Ruta en coche/motocicleta</string>
     <string name="param3">Ruta a pie</string>
     <string name="param4">Ruta en bici</string>
-    <string name="param5">Ruta en transporte público</string>
-
-    <string name="param6">¿Qué transporte público?</string>
-    <string name="param7">Bus</string>
-    <string name="param8">Tren</string>
+    <string name="param5">Bus</string>
+    <string name="param6">Tren</string>
 
     <string name="param9">Evitar Peajes</string>
     <string name="param10">Evitar Autopistas/Autovías</string>

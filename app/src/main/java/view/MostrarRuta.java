@@ -91,8 +91,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
 
     protected void configureShowRoute() {
 
-        // Mostrar el botón si en configuración la variable activarIncidencias está a TRUE;
-
         // De las incidencias que se muestren, estarán guardadas en list<indidencia> en la ruta,
         // por lo que el ID que se pinche en el mapa, mostrar la descripción en el textView, la
         // descripción sería la carretera junto a las descripcion de la incidencia.
@@ -144,10 +142,8 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         String car = UserConfiguration.getBoolean("OpcionCar",true) ? "&mode=driving" : "";
         String bici = UserConfiguration.getBoolean("OpcionBici",true) ? "&mode=bicycling" : "";
         String pie = UserConfiguration.getBoolean("OpcionPie",true) ? "&mode=walking" : "";
-        String publicbus = UserConfiguration.getBoolean("OpcionPublic",true)&&
-                UserConfiguration.getBoolean("OpcionPublicBus",true) ? "&mode=transit" : "";
-        String publictren = UserConfiguration.getBoolean("OpcionPublic",true)&&
-                UserConfiguration.getBoolean("OpcionPublicTren",true)? "&mode=transit" : "";
+        String bus = UserConfiguration.getBoolean("OpcionBus",true) ? "&mode=transit&transit_mode=bus&transit_routing_preference=fewer_transfers" : "";
+        String tren = UserConfiguration.getBoolean("OpcionTren",true)? "&mode=transit&transit_mode=train&transit_routing_preference=fewer_transfers" : "";
         String peaje = UserConfiguration.getBoolean("Peaje",true) ? "&avoid=tolls" : "";
         String autovia = UserConfiguration.getBoolean("Autovia",true) ? "&avoid=highways" : "";
         String ferry = UserConfiguration.getBoolean("Ferry",true) ? "&avoid=ferry" : "";
@@ -162,7 +158,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
        return  getString(R.string.direction_url_api)
                 + "origin=" + originEncode
                 + "&destination=" + destinationEncode
-                + car + bici + pie + publicbus + publictren + peaje + autovia + ferry
+                + car + bici + pie + bus + tren + peaje + autovia + ferry
                 + "&key=" + getString(R.string.google_maps_api_key);
     }
 

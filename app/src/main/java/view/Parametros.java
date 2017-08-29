@@ -30,10 +30,6 @@ public class Parametros extends AppCompatActivity {
     public RadioButton RbOpcionCar;
     public RadioButton RbOpcionPie;
     public RadioButton RbOpcionBici;
-    public RadioButton RbOpcionPublic;
-
-    public TextView tvPublic;
-    public RadioGroup GrbGrupoPublic;
     public RadioButton RbOpcionBus;
     public RadioButton RbOpcionTren;
 
@@ -57,13 +53,6 @@ public class Parametros extends AppCompatActivity {
         RbOpcionCar = (RadioButton) findViewById(R.id.RbOpcionCar);
         RbOpcionPie = (RadioButton) findViewById(R.id.RbOpcionPie);
         RbOpcionBici = (RadioButton) findViewById(R.id.RbOpcionBici);
-        RbOpcionPublic = (RadioButton) findViewById(R.id.RbOpcionPublic);
-
-        tvPublic = (TextView) findViewById(R.id.tvPublic);
-        tvPublic.setVisibility(View.GONE);
-        GrbGrupoPublic = (RadioGroup) findViewById(R.id.GrbGrupoPublic);
-        GrbGrupoPublic.setVisibility(View.GONE);
-
         RbOpcionBus = (RadioButton) findViewById(R.id.RbOpcionBus);
         RbOpcionTren = (RadioButton) findViewById(R.id.RbOpcionTren);
 
@@ -89,7 +78,6 @@ public class Parametros extends AppCompatActivity {
                 Toast saved = Toast.makeText(getApplicationContext(),
                         getApplicationContext().getString(R.string.savedConf), Toast.LENGTH_SHORT);
                 saved.show();
-
             }
         });
     }
@@ -99,10 +87,8 @@ public class Parametros extends AppCompatActivity {
         RbOpcionCar.setChecked(UserConfiguration.getBoolean("OpcionCar",true));
         RbOpcionBici.setChecked(UserConfiguration.getBoolean("OpcionBici",false));
         RbOpcionPie.setChecked(UserConfiguration.getBoolean("OpcionPie",false));
-        RbOpcionPublic.setChecked(UserConfiguration.getBoolean("OpcionPublic",false));
-
-        RbOpcionBus.setChecked(UserConfiguration.getBoolean("OpcionPublicBus",true));
-        RbOpcionTren.setChecked(UserConfiguration.getBoolean("OpcionPublicTren",false));
+        RbOpcionBus.setChecked(UserConfiguration.getBoolean("OpcionBus",false));
+        RbOpcionTren.setChecked(UserConfiguration.getBoolean("OpcionTren",false));
 
         cBPeaje.setChecked(UserConfiguration.getBoolean("Peaje",true));
         cBAutovia.setChecked(UserConfiguration.getBoolean("Autovia",false));
@@ -115,53 +101,14 @@ public class Parametros extends AppCompatActivity {
         editor.putBoolean("OpcionCar",RbOpcionCar.isChecked());
         editor.putBoolean("OpcionBici",RbOpcionBici.isChecked());
         editor.putBoolean("OpcionPie",RbOpcionPie.isChecked());
-        editor.putBoolean("OpcionPublic",RbOpcionPublic.isChecked());
-
-        editor.putBoolean("OpcionPublicBus",RbOpcionBus.isChecked());
-        editor.putBoolean("OpcionPublicTren",RbOpcionTren.isChecked());
+        editor.putBoolean("OpcionBus",RbOpcionBus.isChecked());
+        editor.putBoolean("OpcionTren",RbOpcionTren.isChecked());
 
         editor.putBoolean("Peaje",cBPeaje.isChecked());
         editor.putBoolean("Autovia",cBAutovia.isChecked());
         editor.putBoolean("Ferry",cBFerry.isChecked());
 
-        editor.commit();
+        editor.apply(); // editor.commit();
     }
-
-    public void onRadioButtonClicked(View view) {
-        boolean marcado = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.RbOpcionPublic:
-                if (marcado) {
-                    mostrarPublico();
-                }
-                break;
-            case R.id.RbOpcionBici:
-                if (marcado) {
-                    noMostrarPublico();
-                }
-                break;
-            case R.id.RbOpcionCar:
-                if (marcado) {
-                    noMostrarPublico();
-                }
-                break;
-            case R.id.RbOpcionPie:
-                if (marcado) {
-                    noMostrarPublico();
-                }
-                break;
-        }
-    }
-
-    private void mostrarPublico() {
-        tvPublic.setVisibility(View.VISIBLE);
-        GrbGrupoPublic.setVisibility(View.VISIBLE);
-    }
-    private void noMostrarPublico() {
-        tvPublic.setVisibility(View.GONE);
-        GrbGrupoPublic.setVisibility(View.GONE);
-    }
-
 
 }
