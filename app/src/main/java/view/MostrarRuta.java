@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,7 +31,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.model.Param;
+import data.model.Incidencia;
 import data.repository.RouteRepository;
 import di.library.BaseActivity;
 import io.realm.Realm;
@@ -38,10 +39,6 @@ import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.model.Ruta;
 import logic.GetIncidencias;
-import logic.GetIncidenciasListener;
-import logic.GetURLDirection;
-import logic.GetURLTrafico;
-
 
 public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener {
 
@@ -64,7 +61,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
 
     private List<Ruta> rutas;
     private RouteRepository repository = injector.getRouteRepository();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +87,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
 
     protected void configureShowRoute() {
 
-        // De las incidencias que se muestren, estarán guardadas en list<indidencia> en la ruta,
-        // por lo que el ID que se pinche en el mapa, mostrar la descripción en el textView, la
-        // descripción sería la carretera junto a las descripcion de la incidencia.
-        // (La traducción no sé si será posible)
-
-
         setUpMapIfNeeded();
         loadDirectionFromRoute();
 
@@ -104,7 +94,10 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
             @Override
             public void onClick(View v){
                 // Ejecutar el algoritmo de las incidencias
-                loadTrafficFromRoute();
+                loadTrafficFromRoute(); // Carga la URL y ejecuta el algoritmo de las incidencias.
+                // Una vez que tengo una List<Incidencia> completa con todas las incidencias del pais,
+                // debo comparar con los PuntosRuta (List<LatLng>) de la ruta y rellenar la List<Incidencia>
+                // de esta con las incidencias de 50km alrededor.
             }
         });
     }
@@ -129,7 +122,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     protected void loadTrafficFromRoute() {
         try {
             String trafficURL = getURLTrafficFrom();
-            //new GetIncidencias(this, trafficURL).execute();
+            new GetIncidencias(this, trafficURL).execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -186,6 +179,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
                 "&IncidenciasRESTRICCIONES=true" +
                 "&niveles=true" +
                 "&caracter=acontecimiento";
+
     }
 
     protected void updateGoogleMap() {
@@ -229,6 +223,20 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         }
         repository.setSelected(lastRoute);
     }
+    /*
+    private List<Incidencia> compareIncidencias (List<LatLng> PuntosRuta, List<Incidencia> incidencias) {
+
+        List<Incidencia> incidenciasRuta;
+        // Comparar con las funciones:
+
+        static void distanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude, float[] results)
+
+        // float 	distanceTo(Location dest)
+        // (Se devuelve en metros) - Debería ser unos 30Km de cercanía para que se viese
+
+        return incidenciasRuta;
+    }
+    */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -255,45 +263,26 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         updateGoogleMap();
 
         // Set a listener for marker click.
-        // mMap.setOnMarkerClickListener(this);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                // Mostrar la incidencia
+                // Sacar Datos de la incidencia (Población - Provincia - Causa - Descripción(String en HTML, convertir)
+                String provincia = "";
+                String poblacion = "";
+                String causa = "";
+                String descripcion = "";
+                // String provincia = ¿¿Ruta.get().List<Incidencia>[i].getPoblación() ...??
+                // ¿¿Ruta.get().List<Indidencia>[i].getProvincia() ...??
+                // Puede hacerse con un toast o en TextView que ya hay en el layout
+                Toast.makeText(getApplicationContext(),
+                        "Poblacion: " + poblacion + ", Provincia: " + provincia + ", Causa: " + causa + ", Descripción: " + provincia, Toast.LENGTH_SHORT).show();
+                // Debería cambiarlos por Strings para los idiomas
+                return false;
+            }
+        });
 
     }
-
-    /*
-    // Cambiar el onMarkerClick para rellenar el TextView de la Incidencia pinchada.
-    @Override
-    public boolean onMarkerClick(final Marker marker) {
-
-        // Retrieve the data from the marker.
-        Integer clickCount = (Integer) marker.getTag();
-
-        // Check if a click count was set, then display the click count.
-        if (clickCount != null) {
-            clickCount = clickCount + 1;
-            marker.setTag(clickCount);
-            Toast.makeText(this,
-                    marker.getTitle() +
-                            " has been clicked " + clickCount + " times.",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
-        return false;
-    }
-    Eventos de clic de marcadores
-
-    Puedes usar un OnMarkerClickListener para escuchar eventos de clic en el marcador.
-    Para configurar este receptor en el mapa, llama a GoogleMap.setOnMarkerClickListener(OnMarkerClickListener).
-    Cuando un usuario haga un clic en un marcador, se llamará a onMarkerClick(Marker) y el marcador
-     se pasará como un argumento. Este método devuelve un booleano que indica si consumiste el evento
-     (es decir, si deseas suprimir el comportamiento predeterminado). Si devuelve un valor false, el
-     comportamiento predeterminado se sumará al comportamiento personalizado que elijas.
-    El comportamiento predeterminado de un evento de clic de marcador consiste en mostrar su ventana
-    de información (si está disponible) y mover la cámara de modo que el marcador quede centrado en el mapa.
-
-    */
 
     @Override
     public void onDirectionFinderStart() {
@@ -324,14 +313,6 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         updateDatasource(rutas);
     }
 
-    public void onGetIncidenciasStart(){
-        pDEspera = ProgressDialog.show(this, "Espere","Obteniendo Incidencias...",true);
-    }
-
-    public void onGetIncidenciasSuccess(){
-        pDEspera.dismiss();
-
-    }
 
 }
 

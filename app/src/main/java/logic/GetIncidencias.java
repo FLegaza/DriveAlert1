@@ -1,5 +1,6 @@
 package logic;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
@@ -21,17 +22,14 @@ Esta clase es la encargada de recopilar las incidencias de la web de tráfico
  */
 public class GetIncidencias {
 
-    private GetIncidenciasListener listener;
     private String url;
 
-    public GetIncidencias(GetIncidenciasListener listener, String url) {
-        this.listener = listener;
+    public GetIncidencias(Context context, String url) {
         this.url = url;
     }
 
     // Ejecución de la búsqueda de las incidencias
     public void execute() throws UnsupportedEncodingException {
-        listener.onGetIncidenciasStart();
         new DownloadRawData().execute(this.url);
     }
 
@@ -63,15 +61,13 @@ public class GetIncidencias {
                 InputStream stream = new ByteArrayInputStream(res.getBytes("UTF-8")); //Qué hace?
                 List<Incidencia> incidencias;
                 incidencias = leerFlujoJsonIncidencia(stream);
-                listener.onGetIncidenciasSuccess(incidencias);
+                // ¿Hay que crear un listener para darle la lista de incidencias?
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
     }
-
-    // ------- JSON -------
 
     // Parser JSON para las INCIDENCIAS
     private List<Incidencia> leerFlujoJsonIncidencia(InputStream in) throws IOException {
