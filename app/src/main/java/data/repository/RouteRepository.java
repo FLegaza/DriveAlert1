@@ -5,9 +5,6 @@ import java.util.List;
 import data.datasource.RouteDataSource;
 import data.model.Ruta;
 
-/**
- * Created by miguelangel on 20/8/17.
- */
 
 public class RouteRepository {
 

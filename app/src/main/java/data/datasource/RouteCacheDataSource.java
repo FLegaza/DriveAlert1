@@ -4,9 +4,6 @@ import java.util.List;
 
 import data.model.Ruta;
 
-/**
- * Created by miguelangel on 20/8/17.
- */
 
 public final class RouteCacheDataSource implements RouteDataSource {
 

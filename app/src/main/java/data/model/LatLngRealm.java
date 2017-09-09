@@ -2,9 +2,6 @@ package data.model;
 
 import io.realm.RealmObject;
 
-/**
- * Created by miguelangel on 22/8/17.
- */
 
 public class LatLngRealm extends RealmObject {
     double latitude;

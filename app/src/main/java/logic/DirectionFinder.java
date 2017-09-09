@@ -41,7 +41,7 @@ public class DirectionFinder {
         new DownloadRawData().execute(this.url);
     }
 
-    // Función para recoger toda la información de la página web
+    // Función para recoger toda la información del Web Service de Google
     private class DownloadRawData extends AsyncTask<String, Void, String> {
 
         @Override

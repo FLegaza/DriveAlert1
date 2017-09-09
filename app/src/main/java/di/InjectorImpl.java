@@ -5,9 +5,6 @@ import data.datasource.RouteDataSource;
 import data.datasource.RouteLocalDataSource;
 import data.repository.RouteRepository;
 
-/**
- * Created by miguelangel on 20/8/17.
- */
 
 public final class InjectorImpl implements Injector {
 
