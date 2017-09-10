@@ -44,6 +44,8 @@ public class Ruta extends RealmObject implements Cloneable {
         return new LatLng(latdestino.latitude, latdestino.longitude);
     }
     public List<LatLng> getPuntosRuta() {
+        if (PuntosRuta == null) return new ArrayList<>();
+
         ArrayList<LatLng> puntosRuta = new ArrayList<>(PuntosRuta.size());
         for (LatLngRealm punto: PuntosRuta) {
             puntosRuta.add(new LatLng(punto.latitude, punto.longitude));
@@ -51,6 +53,8 @@ public class Ruta extends RealmObject implements Cloneable {
         return puntosRuta;
     }
     public List<Incidencia> getIncidenciasRuta() {
+        if (IncidenciasRuta == null) return new ArrayList<>();
+
         ArrayList<Incidencia> trafficEvents = new ArrayList<>(IncidenciasRuta.size());
         for (Incidencia trafficEvent: IncidenciasRuta) {
             trafficEvents.add(trafficEvent);
@@ -93,8 +97,15 @@ public class Ruta extends RealmObject implements Cloneable {
      }
 
 
+    // TODO: filter traffic events near to current route
     public List<Incidencia> filterTrafficEvents(List<Incidencia> trafficEvents) {
-        // TODO: filter traffic events near to current route
+        List<Incidencia> incidenciasRuta;
+
+        /*// Comparar con las funciones:
+        static void distanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude, float[] results)
+        // float 	distanceTo(Location dest)
+        // (Se devuelve en metros) - Debería ser unos 30Km de cercanía para que se viese*/
+
         return trafficEvents;
     }
 

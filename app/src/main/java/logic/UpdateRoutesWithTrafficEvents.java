@@ -41,21 +41,6 @@ public class UpdateRoutesWithTrafficEvents {
         }
     }
 
-    /*
-    private List<Incidencia> compareIncidencias (List<LatLng> PuntosRuta, List<Incidencia> incidencias) {
-
-        List<Incidencia> incidenciasRuta;
-        // Comparar con las funciones:
-
-        static void distanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude, float[] results)
-
-        // float 	distanceTo(Location dest)
-        // (Se devuelve en metros) - Debería ser unos 30Km de cercanía para que se viese
-
-        return incidenciasRuta;
-    }
-    */
-
     private class DownloadRawData extends AsyncTask<String, Void, String> {
 
         @Override
