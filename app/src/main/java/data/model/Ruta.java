@@ -50,7 +50,13 @@ public class Ruta extends RealmObject implements Cloneable {
         }
         return puntosRuta;
     }
-    public RealmList<Incidencia> getIncidenciasRuta() { return IncidenciasRuta; }
+    public List<Incidencia> getIncidenciasRuta() {
+        ArrayList<Incidencia> trafficEvents = new ArrayList<>(IncidenciasRuta.size());
+        for (Incidencia trafficEvent: IncidenciasRuta) {
+            trafficEvents.add(trafficEvent);
+        }
+        return trafficEvents;
+    }
 
     public void setOrigen(String origen) {
         this.origen = origen;
@@ -73,12 +79,24 @@ public class Ruta extends RealmObject implements Cloneable {
     }
     public void setPuntosRuta(RealmList<LatLngRealm> puntosRuta) { this.PuntosRuta = puntosRuta; }
 
-    public void setIncidenciasRuta(RealmList<Incidencia> incidenciasRuta) { this.IncidenciasRuta = incidenciasRuta; }
+    public void setIncidenciasRuta(List<Incidencia> incidenciasRuta) {
+        this.IncidenciasRuta = new RealmList<>();
+
+        for (Incidencia trafficEvent: incidenciasRuta) {
+            this.IncidenciasRuta.add(trafficEvent);
+        }
+    }
 
 
      public Object clone() throws CloneNotSupportedException {
          return super.clone();
      }
 
- }
+
+    public List<Incidencia> filterTrafficEvents(List<Incidencia> trafficEvents) {
+        // TODO: filter traffic events near to current route
+        return trafficEvents;
+    }
+
+}
 

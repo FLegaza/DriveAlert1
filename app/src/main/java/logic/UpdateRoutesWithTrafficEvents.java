@@ -83,12 +83,26 @@ public class UpdateRoutesWithTrafficEvents {
             try {
                 InputStream stream = new ByteArrayInputStream(res.getBytes("UTF-8")); //Qué hace?
                 List<Incidencia> trafficEvents = leerFlujoJsonIncidencia(stream);
-                callback.onUpdateTrafficEventsSuccess(trafficEvents);
+                updateRoutes(trafficEvents);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    private void updateRoutes(List<Incidencia> trafficEvents) {
+        ArrayList<Incidencia> filteredTrafficEvents = new ArrayList<>();
+
+        for (Ruta route: this.routes) {
+            List<Incidencia> filtered = route.filterTrafficEvents(trafficEvents);
+            if (filtered != null) {
+                filteredTrafficEvents.addAll(filtered);
+                route.setIncidenciasRuta(filtered);
+            }
+        }
+
+        callback.onUpdateTrafficEventsSuccess(filteredTrafficEvents);
     }
 
     // Parser JSON para las INCIDENCIAS

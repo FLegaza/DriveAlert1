@@ -157,5 +157,8 @@ public class Incidencia extends RealmObject implements Cloneable {
         return nivel;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }

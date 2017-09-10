@@ -1,17 +1,15 @@
 package view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
 
 import data.repository.RouteRepository;
 import di.library.BaseActivity;
-import view.tables.ShowRoutesAdapter;
+import view.adapter.ShowRoutesAdapter;
 
 /**
  * Created by miguelangel on 10/9/17.

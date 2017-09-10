@@ -211,6 +211,10 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
             for (int i = 0; i < ruta.PuntosRuta.size(); i++)
                 polylineOptions.add(ruta.getPuntosRuta().get(i));
 
+            for (Incidencia trafficEvent: ruta.getIncidenciasRuta()) {
+                // TODO: add mark to map
+            }
+
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
     }
@@ -306,10 +310,10 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     }
 
     @Override
-    public void onUpdateTrafficEventsSuccess(List<Incidencia> incidences) {
+    public void onUpdateTrafficEventsSuccess(List<Incidencia> trafficEvents) {
         pDEspera.dismiss();
 
-        if (incidences != null && incidences.size() > 0) {
+        if (trafficEvents != null && trafficEvents.size() > 0) {
             updateGoogleMap();
             updateDatasource(rutas);
         } else {
