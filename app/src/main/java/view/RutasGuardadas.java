@@ -1,9 +1,10 @@
 package view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.project.francisco.drivealert.R;
@@ -35,12 +36,11 @@ public class RutasGuardadas extends BaseActivity {
     }
 
     private void loadRoutesTable() {
-        LinearLayoutManager manager  = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager manager  = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         final ShowRoutesAdapter adapter = new ShowRoutesAdapter(repository.getListRoutes());
         routesRecycler.setLayoutManager(manager);
         routesRecycler.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
     }
-
 }
