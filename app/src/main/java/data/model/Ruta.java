@@ -4,11 +4,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /*
    CLASE RUTA
@@ -46,13 +44,23 @@ public class Ruta extends RealmObject implements Cloneable {
         return new LatLng(latdestino.latitude, latdestino.longitude);
     }
     public List<LatLng> getPuntosRuta() {
+        if (PuntosRuta == null) return new ArrayList<>();
+
         ArrayList<LatLng> puntosRuta = new ArrayList<>(PuntosRuta.size());
         for (LatLngRealm punto: PuntosRuta) {
             puntosRuta.add(new LatLng(punto.latitude, punto.longitude));
         }
         return puntosRuta;
     }
-    public RealmList<Incidencia> getIncidenciasRuta() { return IncidenciasRuta; }
+    public List<Incidencia> getIncidenciasRuta() {
+        if (IncidenciasRuta == null) return new ArrayList<>();
+
+        ArrayList<Incidencia> trafficEvents = new ArrayList<>(IncidenciasRuta.size());
+        for (Incidencia trafficEvent: IncidenciasRuta) {
+            trafficEvents.add(trafficEvent);
+        }
+        return trafficEvents;
+    }
 
     public void setOrigen(String origen) {
         this.origen = origen;
@@ -75,12 +83,31 @@ public class Ruta extends RealmObject implements Cloneable {
     }
     public void setPuntosRuta(RealmList<LatLngRealm> puntosRuta) { this.PuntosRuta = puntosRuta; }
 
-    public void setIncidenciasRuta(RealmList<Incidencia> incidenciasRuta) { this.IncidenciasRuta = incidenciasRuta; }
+    public void setIncidenciasRuta(List<Incidencia> incidenciasRuta) {
+        this.IncidenciasRuta = new RealmList<>();
+
+        for (Incidencia trafficEvent: incidenciasRuta) {
+            this.IncidenciasRuta.add(trafficEvent);
+        }
+    }
 
 
      public Object clone() throws CloneNotSupportedException {
          return super.clone();
      }
 
- }
+
+    // TODO: filter traffic events near to current route
+    public List<Incidencia> filterTrafficEvents(List<Incidencia> trafficEvents) {
+        List<Incidencia> incidenciasRuta;
+
+        /*// Comparar con las funciones:
+        static void distanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude, float[] results)
+        // float 	distanceTo(Location dest)
+        // (Se devuelve en metros) - Debería ser unos 30Km de cercanía para que se viese*/
+
+        return trafficEvents;
+    }
+
+}
 

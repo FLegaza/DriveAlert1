@@ -6,7 +6,7 @@ Clase INCIDENCIA - Creada para albergar cada una de las incidencias de tráfico 
 
 import io.realm.RealmObject;
 
-public class Incidencia extends RealmObject{
+public class Incidencia extends RealmObject implements Cloneable {
 
     // Atributos de la clase Incidencia
     private String carretera;
@@ -157,5 +157,8 @@ public class Incidencia extends RealmObject{
         return nivel;
     }
 
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }

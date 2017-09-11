@@ -1,6 +1,5 @@
 package logic;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
@@ -15,22 +14,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.model.Incidencia;
-import data.model.Param;
+import data.model.Ruta;
 
 /*
 Esta clase es la encargada de recopilar las incidencias de la web de tráfico
  */
-public class GetIncidencias {
+public class UpdateRoutesWithTrafficEvents {
 
     private String url;
+    private List<Ruta> routes;
+    private UpdateTrafficEvents callback;
 
-    public GetIncidencias(Context context, String url) {
+    public UpdateRoutesWithTrafficEvents(UpdateTrafficEvents callback, List<Ruta> routes, String url) {
+        this.routes = routes;
         this.url = url;
+        this.callback = callback;
     }
 
     // Ejecución de la búsqueda de las incidencias
     public void execute() throws UnsupportedEncodingException {
-        new DownloadRawData().execute(this.url);
+        if (routes == null || routes.size() <= 0) {
+            callback.onUpdateTrafficEventsFailure();
+        } else {
+            callback.onUpdateTrafficEventsStart();
+            new DownloadRawData().execute(this.url);
+        }
     }
 
     private class DownloadRawData extends AsyncTask<String, Void, String> {
@@ -59,9 +67,8 @@ public class GetIncidencias {
         protected void onPostExecute(String res) {
             try {
                 InputStream stream = new ByteArrayInputStream(res.getBytes("UTF-8")); //Qué hace?
-                List<Incidencia> incidencias;
-                incidencias = leerFlujoJsonIncidencia(stream);
-                // ¿Hay que crear un listener para darle la lista de incidencias?
+                List<Incidencia> trafficEvents = leerFlujoJsonIncidencia(stream);
+                updateRoutes(trafficEvents);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -69,12 +76,24 @@ public class GetIncidencias {
 
     }
 
+    private void updateRoutes(List<Incidencia> trafficEvents) {
+        ArrayList<Incidencia> filteredTrafficEvents = new ArrayList<>();
+
+        for (Ruta route: this.routes) {
+            List<Incidencia> filtered = route.filterTrafficEvents(trafficEvents);
+            if (filtered != null) {
+                filteredTrafficEvents.addAll(filtered);
+                route.setIncidenciasRuta(filtered);
+            }
+        }
+
+        callback.onUpdateTrafficEventsSuccess(filteredTrafficEvents);
+    }
+
     // Parser JSON para las INCIDENCIAS
     private List<Incidencia> leerFlujoJsonIncidencia(InputStream in) throws IOException {
-        // Nueva instancia JsonReader
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
-            // Leer Array
             return leerArrayIncidencias(reader);
         } finally {
             reader.close();
@@ -82,15 +101,16 @@ public class GetIncidencias {
     }
 
     private List<Incidencia> leerArrayIncidencias(JsonReader reader) throws IOException {
-        // Lista temporal
-        ArrayList<Incidencia> incidencias = new ArrayList<>();
+        ArrayList<Incidencia> trafficEvents = new ArrayList<>();
+
         reader.beginArray();
         while (reader.hasNext()) {
-            // Leer objeto
-            incidencias.add(leerIncidencia(reader));
+            Incidencia trafficEvent = leerIncidencia(reader);
+            trafficEvents.add(trafficEvent);
         }
         reader.endArray();
-        return incidencias;
+
+        return trafficEvents;
     }
 
     private Incidencia leerIncidencia(JsonReader reader) throws IOException {
@@ -125,6 +145,7 @@ public class GetIncidencias {
         // Lectura de cada atributo
         while (reader.hasNext()) {
             String name = reader.nextName();
+
             switch (name) {
                 case "carretera":
                     carretera = reader.nextString();
@@ -172,7 +193,10 @@ public class GetIncidencias {
                     tipoInci = reader.nextString();
                     break;
                 case "pkFinal":
-                    pkFinal = reader.nextInt();
+                    String valuePKFin = reader.nextString().replace(" ", "");
+                    if (!valuePKFin.isEmpty()) {
+                        pkFinal = Integer.parseInt(valuePKFin);
+                    }
                     break;
                 case "provincia":
                     provincia = reader.nextString();
@@ -184,7 +208,10 @@ public class GetIncidencias {
                     hora = reader.nextString();
                     break;
                 case "pkIni":
-                    pkIni = reader.nextInt();
+                    String valuePKIni = reader.nextString().replace(" ", "");
+                    if (!valuePKIni.isEmpty()) {
+                        pkIni = Integer.parseInt(valuePKIni);
+                    }
                     break;
                 case "icono":
                     icono = reader.nextString();

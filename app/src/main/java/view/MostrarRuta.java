@@ -38,9 +38,10 @@ import io.realm.Realm;
 import logic.DirectionFinder;
 import logic.DirectionFinderListener;
 import data.model.Ruta;
-import logic.GetIncidencias;
+import logic.UpdateRoutesWithTrafficEvents;
+import logic.UpdateTrafficEvents;
 
-public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener {
+public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener, UpdateTrafficEvents {
 
     public TextView tvOrigShow;
     public TextView tvDestShow;
@@ -122,7 +123,7 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     protected void loadTrafficFromRoute() {
         try {
             String trafficURL = getURLTrafficFrom();
-            new GetIncidencias(this, trafficURL).execute();
+            new UpdateRoutesWithTrafficEvents(this, rutas, trafficURL).execute();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -210,6 +211,10 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
             for (int i = 0; i < ruta.PuntosRuta.size(); i++)
                 polylineOptions.add(ruta.getPuntosRuta().get(i));
 
+            for (Incidencia trafficEvent: ruta.getIncidenciasRuta()) {
+                // TODO: add mark to map
+            }
+
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
     }
@@ -217,26 +222,12 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
     private void updateDatasource(List<Ruta> routes) {
         Ruta lastRoute = null;
 
-        for (Ruta route:routes) {
+        for (Ruta route : routes) {
             repository.persistRoute(route);
             lastRoute = route;
         }
         repository.setSelected(lastRoute);
     }
-    /*
-    private List<Incidencia> compareIncidencias (List<LatLng> PuntosRuta, List<Incidencia> incidencias) {
-
-        List<Incidencia> incidenciasRuta;
-        // Comparar con las funciones:
-
-        static void distanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude, float[] results)
-
-        // float 	distanceTo(Location dest)
-        // (Se devuelve en metros) - Debería ser unos 30Km de cercanía para que se viese
-
-        return incidenciasRuta;
-    }
-    */
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -313,6 +304,27 @@ public class MostrarRuta extends BaseActivity implements OnMapReadyCallback, Dir
         updateDatasource(rutas);
     }
 
+    @Override
+    public void onUpdateTrafficEventsStart() {
+        pDEspera = ProgressDialog.show(this, "Espere","Actualizando las rutas con sus incidencias...",true);
+    }
 
+    @Override
+    public void onUpdateTrafficEventsSuccess(List<Incidencia> trafficEvents) {
+        pDEspera.dismiss();
+
+        if (trafficEvents != null && trafficEvents.size() > 0) {
+            updateGoogleMap();
+            updateDatasource(rutas);
+        } else {
+            Toast.makeText(this, "No se han encontrado para estas rutas incidencias.", Toast.LENGTH_LONG);
+        }
+    }
+
+    @Override
+    public void onUpdateTrafficEventsFailure() {
+        pDEspera.dismiss();
+        Toast.makeText(this, "Debe crear una ruta para poder encontrar incidencias.", Toast.LENGTH_LONG);
+    }
 }
 

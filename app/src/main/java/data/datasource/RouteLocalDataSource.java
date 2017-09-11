@@ -12,6 +12,11 @@ public class RouteLocalDataSource implements RouteDataSource {
 
     @Override
     public void save(Ruta route) {
+        // TODO: search route IF exist then update values, ELSE persist
+
+        // IF PART
+        
+        // ELSE PART
         Realm realm = Realm.getDefaultInstance();
 
         realm.beginTransaction();
